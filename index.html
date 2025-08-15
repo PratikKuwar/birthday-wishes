@@ -7,131 +7,97 @@
 @import url('https://fonts.googleapis.com/css?family=Pacifico|Baloo+2|Caveat|Montserrat:900&display=swap');
 body {
   margin: 0;
-  background: linear-gradient(-45deg, #ff9a9e 30%, #fad0c4 100%);
+  background: linear-gradient(130deg, #ff9a9e 5%, #fad0c4 70%, #ffb6c1 100%);
   min-height: 100vh;
   font-family: 'Baloo 2', 'Pacifico', 'Comic Sans MS', cursive;
   overflow-x: hidden;
 }
 #top-photo-row {
-  position: relative;
   width: 100vw;
-  min-height: 270px;
   display: flex;
   justify-content: center;
   align-items: flex-end;
-  gap: 48px;
-  margin-top: 40px;
+  gap: 68px;
+  margin-top: 48px;
+  margin-bottom: -15px;
   z-index: 10;
+  position: relative;
+  height: 245px;
 }
 .top-hang {
-  width: 195px;
-  height: 270px;
+  width: 170px;
+  height: 228px;
   object-fit: cover;
-  border-radius: 20px;
-  border: 12px solid #fff;
+  border-radius: 18px;
+  border: 10px solid #fff;
   background: #fff;
   box-shadow: 0 8px 38px #e0bbff8c;
-  position: relative;
   margin-bottom: 22px;
+  position: relative;
 }
 .rope-top {
   width: 7px;
-  height: 64px;
+  height: 60px;
   position: absolute;
   left: 50%;
-  top: -64px;
+  top: -60px;
   transform: translateX(-50%);
   background: linear-gradient(to bottom,#ffe746,#d6b200 80%);
   z-index: 15;
 }
 #wire-svg-top {
   position: absolute;
-  left: 0; top: 0;
+  left: 0;
+  top: 0;
   width: 100vw;
-  height: 80px;
+  height: 78px;
   pointer-events: none;
   z-index: 2;
 }
-#side-photo-col {
-  position: absolute;
-  right: 0;
-  top: 340px;
-  display: flex;
-  flex-direction: column;
-  gap: 50px;
-  align-items: flex-start;
-  min-width: 210px;
-  z-index: 10;
-}
-.side-hang {
-  width: 170px;
-  height: 230px;
-  object-fit: cover;
-  border-radius: 20px;
-  border: 10px solid #fff;
-  background: #fff;
-  box-shadow: 0 7px 22px #8ed1fc99;
-  position: relative;
-}
-.rope-side {
-  width: 7px;
-  height: 55px;
-  position: absolute;
-  left: 50%;
-  top: -55px;
-  transform: translateX(-50%);
-  background: linear-gradient(to bottom,#ffe746,#d6b200 80%);
-  z-index: 15;
-}
-#wire-svg-side {
-  position: absolute;
-  right: 0; top: 290px;
-  width: 230px;
-  height: 320px;
-  pointer-events: none;
-  z-index: 4;
-}
 #main-center {
   width: 100vw;
-  min-height: 400px;
+  min-height: 520px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  position: relative;
+  z-index: 20;
 }
 #bday-message {
-  font-size: 7.5rem;
+  font-size: 7.2rem;
   color: #fff;
   font-weight: bold;
-  text-shadow: 6px 6px 44px #d63384, 0 0 90px #ffffffbb;
-  margin-bottom: 4px;
-  margin-top: 25px;
+  text-shadow: 5px 6px 44px #d63384, 0 0 90px #ffffffbb;
+  margin-bottom: 0;
+  margin-top: 8px;
   letter-spacing: 3.2px;
   font-family: 'Pacifico', 'Caveat', cursive;
+  text-align: center;
 }
 .cake-img {
-  width: 480px;
-  margin-top: 20px;
+  width: 440px;
   display: block;
+  margin: 28px auto 0;
   cursor: pointer;
-  transition: transform 0.17s, filter 0.18s;
-  filter: drop-shadow(0 0 44px #fff3bb);
+  transition: transform 0.14s, filter 0.2s;
+  filter: drop-shadow(0 0 40px #fff3bb);
 }
 .cake-img:active {
-  transform: scale(1.13) rotate(-3deg);
-  filter: drop-shadow(0 0 84px #fffedd);
+  transform: scale(1.11) rotate(-3deg);
+  filter: drop-shadow(0 0 84px #ffd1b3);
 }
 #cake-label {
-  font-size: 2.8rem;
+  font-size: 2.2rem;
   color: #fff;
   background: #d63384e8;
-  padding: 10px 32px;
+  padding: 13px 38px;
   border-radius: 33px;
   text-align: center;
-  margin-top: -28px;
-  margin-bottom: 18px;
+  margin: 22px auto 0 auto;
+  max-width: 270px;
   font-family: 'Baloo 2', cursive;
-  letter-spacing: 1.5px;
+  letter-spacing: 2px;
   box-shadow: 2px 2px 28px #d6338455, 0 0 40px #fffbb177;
   position: relative;
   z-index: 20;
@@ -150,132 +116,95 @@ body {
   z-index: 2000;
   display: none;
 }
-#happy-message-outer {
-  display: none;
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: linear-gradient(120deg, #fff68f 40%, #fd8469 80%, #fad0c4 100%);
-  z-index: 1100;
-  overflow: hidden;
+#surprise-next {
+  display:none;
+  position:fixed; width:100vw;height:100vh;overflow:hidden;top:0;left:0;z-index:1100;
+  background:linear-gradient(136deg,#fb89bf 25%,#fad0c4 55%,#ffd6fa 100%);
+  transition: background 1.5s;
 }
-#gift-animation-box {
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%,-50%);
-  width: 380px;
-  height: 380px;
-  z-index: 2000;
-  display: flex;
-  align-items: center; justify-content: center;
+#gift-box-center {
+  width:320px; height:320px;
+  position:absolute; left:50%;top:50%;
+  transform:translate(-50%,-53%);
+  z-index:1010;
+  display:flex;align-items:center;justify-content:center;
 }
-.gift-box {
-  width: 290px; height: 290px;
-  position: relative;
-  animation: boxUp 1.5s cubic-bezier(.46,1.6,.4,1.01);
+.gift-box-top {
+  width:260px;height:56px; background:#fff9bb;
+  border:7px solid #e96e9a; position:absolute;top:3px;
+  border-radius:20px 20px 16px 16px;left:7px;z-index:20;
+  animation:openLid 1.5s cubic-bezier(.56,1.6,.65,1.01) forwards;
 }
-.gift-lid {
-  position: absolute;
-  width: 290px; height: 60px;
-  background: #fff68f;
-  border: 5px solid #fd8469;
-  border-radius: 17px 17px 10px 10px;
-  left: 0;
-  top: -10px;
-  z-index: 20;
-  animation: lidOpen 1.5s forwards cubic-bezier(.36,1.6,.4,1.01);
-}
-.gift-main {
-  position: absolute;
-  width: 290px; height: 230px; background: #fd8469;
-  border: 7px solid #fff68f;
-  border-radius: 0 0 22px 22px;
-  left: 0; top: 67px; z-index: 10;
+.gift-box-bottom {
+  width:260px; height:188px; background:#e96e9a;
+  border:8px solid #fff9bb; position:absolute; top:60px; left:7px; border-radius:0 0 22px 22px;z-index:10;
 }
 .gift-ribbon {
-  position: absolute; left: 50%; top: 0;
-  transform: translateX(-50%);
-  width: 48px; height: 290px; background: #fff;
-  border-radius: 20px;
-  z-index: 12;
+  position:absolute;left:50%;top:6px;transform:translateX(-50%);
+  width:54px; height:238px; background:#fff;
+  border-radius:15px;
+  z-index:12;
 }
-@keyframes boxUp {
-  0% { transform: scale(0.7) rotate(-6deg);}
-  80% { transform: scale(1.2) rotate(7deg);}
-  100% { transform: scale(1) rotate(0deg);}
-}
-@keyframes lidOpen {
+@keyframes openLid {
   0% {transform: translateY(0);}
-  60% {transform: translateY(-145px) rotate(-9deg);}
-  100% {transform: translateY(-180px) rotate(-16deg);}
-}
-#happy-message {
-  position: absolute;
-  left: 50%; top: 48%;
-  transform: translate(-50%,-50%);
-  max-width: 85vw;
-  z-index: 2100;
-  text-align:center;
+  65% {transform: translateY(-120px) rotate(-15deg);}
+  100% {transform: translateY(-180px) rotate(-24deg);}
 }
 #happy-msg-center {
-  font-size: 7.5rem;
-  color: #fff;
-  font-family: 'Pacifico', 'Montserrat', cursive;
-  font-weight: bold;
-  letter-spacing: 3.5px;
-  text-shadow: 6px 6px 58px #d63384,0 0 112px #fff;
-  margin-bottom: 0;
+  font-size:7rem;
+  color:#fff;
+  font-family:'Pacifico','Montserrat',cursive; font-weight:bold;
+  letter-spacing:3.1px;
+  text-shadow:6px 6px 48px #d63384,0 0 102px #fff;
+  text-align:center;margin:-44px 0 0 0;
+  z-index:2110; position:relative;
 }
 .sticky-notes {
-  position: absolute;
-  left: 50%;
-  top: 52%;
-  transform: translate(-50%,-50%);
-  width: 80vw;
-  max-width:1300px;
-  height: 85vh;
-  pointer-events: none;
-  z-index: 2000;
+  position:fixed;left:0;top:0;width:100vw;height:100vh;z-index:2000;
+  pointer-events:none;
 }
 .sticky {
-  width: 230px;
-  min-height: 110px;
-  border-radius: 15px;
-  box-shadow: 2px 4px 18px #8888a966;
-  padding: 22px 24px 21px 25px;
-  font-size: 1.8rem;
-  font-family: 'Caveat','Baloo 2',cursive;
-  font-weight: bold;
-  position: absolute;
-  color: #fff;
-  text-shadow: 0 2px 12px #726a7a;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  justify-content: center;
-  margin: 0;
-  border: 4px solid #fff;
+  width:225px; min-height:114px;
+  border-radius:17px;
+  box-shadow: 2px 8px 22px #8888a966;
+  padding:28px 28px 21px 25px;
+  font-size:1.55rem; font-family:'Caveat','Baloo 2',cursive; font-weight:bold;
+  position: absolute; color: #222; letter-spacing:1.2px; text-shadow:0 1px 9px #fff8;
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; margin: 0;border:3px solid #fff;
+  opacity:0;
+}
+.pin {
+  width:32px; height:32px; background:url('https://cdn-icons-png.flaticon.com/128/346/346586.png') no-repeat center/cover;
+  position:absolute;left:50%;top:-17px;transform:translateX(-50%);
+  box-shadow:0 1px 6px #2227;
 }
 .sticky .emoji {
-  font-size: 2.4rem;
+  font-size:2.2rem; margin-left:6px;margin-top:8px;
 }
-.sticky1 {background: #ffb7a2; left: 7%; top:15%; transform: rotate(-9deg);}
-.sticky2 {background: #f2e86d; left: 71%; top:13%; transform: rotate(13deg);}
-.sticky3 {background: #9ae5d6; left: 19%; top:62%; transform: rotate(-13deg);}
-.sticky4 {background: #e89bf5; left: 80%; top:65%; transform: rotate(12deg);}
-.sticky5 {background: #ffd6fa; left:45%; top:28%; transform: rotate(-7deg);}
-.sticky6 {background: #fc875c; left:62%; top:47%; transform: rotate(21deg);}
-.sticky7 {background: #cdfbe7; left:36%; top:75%; transform: rotate(-17deg);}
-.sticky8 {background: #a1e8ff; left:54%; top:68%; transform: rotate(11deg);}
-.sticky9 {background: #e1fa85; left:87%; top:31%; transform: rotate(19deg);}
-.sticky10{background: #e1cffc; left:8%; top:44%; transform: rotate(-15deg);}
+.sticky1 {background:#ffb7a2;left:13vw;top:15vh;transform:rotate(-13deg);}
+.sticky2 {background:#f2e86d;left:72vw;top:11vh;transform:rotate(15deg);}
+.sticky3 {background:#78f7e6;left:17vw;top:66vh;transform:rotate(-11deg);}
+.sticky4 {background:#e89bf5;left:76vw;top:68vh;transform:rotate(7deg);}
+.sticky5 {background:#ffd6fa;left:35vw;top:29vh;transform:rotate(-9deg);}
+.sticky6 {background:#fc875c;left:62vw;top:41vh;transform:rotate(19deg);}
+.sticky7 {background:#cdfbe7;left:31vw;top:70vh;transform:rotate(-17deg);}
+.sticky8 {background:#a1e8ff;left:55vw;top:67vh;transform:rotate(13deg);}
+.sticky9 {background:#e1fa85;left:85vw;top:31vh;transform:rotate(19deg);}
+.sticky10{background:#e1cffc;left:9vw;top:41vh;transform:rotate(-15deg);}
+@media (max-width:900px){
+  #bday-message{font-size:4.1rem;}
+  .cake-img{width:260px;}
+  #happy-msg-center{font-size:3.2rem;}
+  .sticky {width:45vw; font-size:1rem;}
+}
 </style>
 </head>
 <body>
 <!-- Top wire and hanging images -->
 <div id="top-photo-row">
-  <svg id="wire-svg-top" width="100vw" height="80">
-    <path d="M30,68 Q230,20 650,68 Q1000,120 1420,68"
-      stroke="#fffbb1" stroke-width="15" fill="none" filter="url(#glow)" />
+  <svg id="wire-svg-top" width="100vw" height="78">
+    <path d="M65,65 Q300,20 700,68 Q1100,120 1380,68"
+      stroke="#fffbb1" stroke-width="14" fill="none" filter="url(#glow)" />
     <defs>
       <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
         <feGaussianBlur stdDeviation="9" result="coloredBlur"/>
@@ -286,62 +215,42 @@ body {
       </filter>
     </defs>
   </svg>
-  <div class="rope-top"></div>
-  <img src="IMG_8736.jpeg" class="top-hang" style="margin-right:-6px;">
-  <div class="rope-top"></div>
-  <img src="IMG_7789.jpeg" class="top-hang" style="margin-left:-4px;">
-  <div class="rope-top"></div>
-  <img src="IMG_7744.jpeg" class="top-hang" style="margin-left:-8px;">
-  <div class="rope-top"></div>
-  <img src="IMG_7708.jpeg" class="top-hang" style="margin-left:0;">
+  <div class="rope-top" style="left:13vw;"></div><img src="IMG_8736.jpeg" class="top-hang" style="left:13vw;">
+  <div class="rope-top" style="left:34vw;"></div><img src="IMG_7789.jpeg" class="top-hang" style="left:34vw;">
+  <div class="rope-top" style="left:56vw;"></div><img src="IMG_7744.jpeg" class="top-hang" style="left:56vw;">
+  <div class="rope-top" style="left:77vw;"></div><img src="IMG_7708.jpeg" class="top-hang" style="left:77vw;">
 </div>
-<!-- Inverted L with images at right -->
-<div id="side-photo-col">
-  <svg id="wire-svg-side" width="220" height="320">
-    <path d="M110,0 Q110,120 110,320 Q175,320 175,190"
-      stroke="#fffbb1" stroke-width="15" fill="none" filter="url(#glow)" />
-  </svg>
-  <div class="rope-side"></div>
-  <img src="IMG_7687.jpeg" class="side-hang" style="margin-top:8px;">
-  <div class="rope-side"></div>
-  <img src="IMG_7753.jpeg" class="side-hang">
-  <div class="rope-side"></div>
-  <img src="IMG_4082.jpeg" class="side-hang">
-</div>
-<!-- Centered birthday message and cake -->
+<!-- Centered birthday and cake -->
 <div id="main-center">
   <div id="bday-message">Happy Birthday 🎂</div>
-  <div id="cake-label">Surprise here!</div>
   <img src="IMG_8962.jpeg" class="cake-img" id="cake-img" title="Click the cake!">
+  <div id="cake-label">Surprise here!</div>
 </div>
-<!-- Confetti & Sparkle effects -->
+<!-- Confetti & Sparkles -->
 <canvas id="confetti-canvas"></canvas>
 <canvas id="sparkle"></canvas>
 <audio id="birthday-audio" src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
-
-<!-- Second page: gift animation, message, sticky notes -->
-<div id="happy-message-outer">
-  <div id="gift-animation-box">
-    <div class="gift-box">
-      <div class="gift-lid"></div>
-      <div class="gift-main"></div>
-      <div class="gift-ribbon"></div>
-    </div>
+<!-- The surprise/gift animation, then sticky notes -->
+<div id="surprise-next">
+  <div id="gift-box-center">
+    <div class="gift-box-top"></div>
+    <div class="gift-box-bottom"></div>
+    <div class="gift-ribbon"></div>
   </div>
   <div id="happy-message" style="display:none;">
-    <div id="happy-msg-center">Happy Birthday Anuja🫶❤️</div>
+    <div id="happy-msg-center">Happy Birthday Anuja❤️🫶</div>
   </div>
-  <div class="sticky-notes" style="pointer-events: none;">
-    <div class="sticky sticky1">"You make my world shine brighter every day." <span class="emoji">✨</span></div>
-    <div class="sticky sticky2">"May your heart be filled with laughter and love always!" <span class="emoji">😍</span></div>
-    <div class="sticky sticky3">"You are the reason for so many smiles. Happy Birthday!" <span class="emoji">😻</span></div>
-    <div class="sticky sticky4">"To more memories, more adventures, and all the love you deserve." <span class="emoji">🫶</span></div>
-    <div class="sticky sticky5">"Wishing you happiness, hugs, and sweetness forever." <span class="emoji">😘</span></div>
-    <div class="sticky sticky6">"Life is more beautiful with you in it. Happy birthday!!" <span class="emoji">❤️</span></div>
-    <div class="sticky sticky7">"You deserve all the smiles and hugs!" <span class="emoji">😍</span></div>
-    <div class="sticky sticky8">"Sending love and sparkles your way!" <span class="emoji">✨</span></div>
-    <div class="sticky sticky9">"Your kindness makes the world a better place." <span class="emoji">😻</span></div>
-    <div class="sticky sticky10">"Keep shining, birthday girl!" <span class="emoji">🫶</span></div>
+  <div class="sticky-notes">
+    <div class="sticky sticky1"><div class="pin"></div>"You make my world shine brighter every day." <span class="emoji">✨</span></div>
+    <div class="sticky sticky2"><div class="pin"></div>"May your heart be filled with laughter and love always!" <span class="emoji">😍</span></div>
+    <div class="sticky sticky3"><div class="pin"></div>"You are the reason for so many smiles. Happy Birthday!" <span class="emoji">😻</span></div>
+    <div class="sticky sticky4"><div class="pin"></div>"To more memories, more adventures, and all the love you deserve." <span class="emoji">🫶</span></div>
+    <div class="sticky sticky5"><div class="pin"></div>"Wishing you happiness, hugs, and sweetness forever." <span class="emoji">😘</span></div>
+    <div class="sticky sticky6"><div class="pin"></div>"Life is more beautiful with you in it. Happy birthday!!" <span class="emoji">❤️</span></div>
+    <div class="sticky sticky7"><div class="pin"></div>"You deserve all the smiles and hugs!" <span class="emoji">😍</span></div>
+    <div class="sticky sticky8"><div class="pin"></div>"Sending love and sparkles your way!" <span class="emoji">✨</span></div>
+    <div class="sticky sticky9"><div class="pin"></div>"Your kindness makes the world a better place." <span class="emoji">😻</span></div>
+    <div class="sticky sticky10"><div class="pin"></div>"Keep shining, birthday girl!" <span class="emoji">🫶</span></div>
   </div>
 </div>
 <script>
@@ -352,11 +261,11 @@ confettiCanvas.width = cw;
 confettiCanvas.height = ch;
 let ctx = confettiCanvas.getContext('2d');
 let confettiPieces = [];
-for (let i = 0; i < 130; i++) {
+for (let i = 0; i < 140; i++) {
   confettiPieces.push({
     x: Math.random() * cw,
     y: Math.random() * ch,
-    r: Math.random() * 10 + 3,
+    r: Math.random() * 9 + 2,
     color: `hsl(${Math.random()*360},90%,60%)`,
     speed: Math.random() * 2 + 1
   });
@@ -377,8 +286,7 @@ function confettiAnim() {
   requestAnimationFrame(confettiAnim);
 }
 confettiAnim();
-
-// Cake click: sparkles, music, gift box opening, then message/stickies
+// Sparkle
 const cakeImg = document.getElementById('cake-img');
 const sparkleCanvas = document.getElementById('sparkle');
 sparkleCanvas.width = cw;
@@ -392,13 +300,13 @@ function drawSparkles() {
     sparkleCtx.arc(s.x, s.y, s.r, 0, 2*Math.PI);
     sparkleCtx.fillStyle = s.color;
     sparkleCtx.shadowColor = s.color;
-    sparkleCtx.shadowBlur = 11;
+    sparkleCtx.shadowBlur = 12;
     sparkleCtx.globalAlpha = s.alpha;
     sparkleCtx.fill();
     s.r *= 1.07;
-    s.alpha -= 0.019;
+    s.alpha -= 0.021;
   });
-  sparkles = sparkles.filter(s => s.alpha > 0.07);
+  sparkles = sparkles.filter(s => s.alpha > 0.06);
   sparkleCtx.globalAlpha = 1;
   if (sparkles.length > 0) {
     requestAnimationFrame(drawSparkles);
@@ -407,39 +315,40 @@ function drawSparkles() {
   }
 }
 cakeImg.onclick = function(e) {
-  // Sparkles
   let rect = cakeImg.getBoundingClientRect();
   let cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
   sparkleCanvas.style.display = "";
-  for(let i=0;i<70;i++){
+  for(let i=0;i<61;i++){
     let angle = Math.random() * 2 * Math.PI;
-    let dist = Math.random() * 120 + 40;
+    let dist = Math.random() * 110 + 32;
     let x = cx + Math.cos(angle) * dist;
     let y = cy + Math.sin(angle) * dist;
-    sparkles.push({
-      x: x,
-      y: y,
-      r: Math.random()*12+4,
-      color: `hsl(${Math.floor(Math.random()*360)},100%,70%)`,
-      alpha: 1
-    });
+    sparkles.push({x: x, y: y, r: Math.random()*11+3, color: `hsl(${Math.floor(Math.random()*360)},100%,70%)`, alpha: 1});
   }
   drawSparkles();
-  // Play music
   let audio = document.getElementById("birthday-audio");
   audio.currentTime = 0;
   audio.play();
-  // Hide first page
+  // Hide first
   document.getElementById('main-center').style.display = 'none';
   document.getElementById('top-photo-row').style.display = 'none';
-  document.getElementById('side-photo-col').style.display = 'none';
-  // Show gift box animation then reveal message/stickies
-  let msgOuter = document.getElementById('happy-message-outer');
-  msgOuter.style.display = 'block';
+  // Show gift box
+  let next = document.getElementById('surprise-next');
+  next.style.display = 'block';
   setTimeout(() => {
-    document.getElementById('gift-animation-box').style.display = 'none';
+    document.getElementById('gift-box-center').style.display = 'none';
     document.getElementById('happy-message').style.display = 'block';
-  }, 1800); // after box opens
+    let notes = document.getElementsByClassName('sticky');
+    let shown = 0;
+    function revealSticky() {
+      if (shown < notes.length) {
+        notes[shown].style.opacity = 1;
+        shown++;
+        setTimeout(revealSticky, 300 + Math.random()*400);
+      }
+    }
+    setTimeout(revealSticky, 500);
+  },1800);
 };
 </script>
 </body>
