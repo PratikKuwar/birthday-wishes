@@ -2,86 +2,269 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Happy Birthday!</title>
+<title>Birthday Surprise!</title>
 <style>
-    body {
-        margin: 0;
-        padding: 0;
-        background: linear-gradient(to right, #ff9a9e, #fad0c4);
-        height: 100vh;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        flex-direction: column;
-        font-family: 'Comic Sans MS', cursive;
-        overflow: hidden;
-    }
-    h1 {
-        color: white;
-        font-size: 3rem;
-        text-shadow: 2px 2px 5px #000;
-        animation: bounce 2s infinite;
-    }
-    @keyframes bounce {
-        0%, 100% { transform: translateY(0); }
-        50% { transform: translateY(-20px); }
-    }
-    canvas {
-        position: fixed;
-        top: 0;
-        left: 0;
-        pointer-events: none;
-    }
+body {
+  margin: 0;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4);
+  height: 100vh;
+  font-family: 'Comic Sans MS', cursive;
+  overflow: hidden;
+  user-select: none;
+}
+h1, h2 {
+  color: white;
+  text-shadow: 2px 2px 8px #000;
+  margin-top: 40px;
+  text-align: center;
+}
+.images img, .stars img {
+  position: absolute;
+  pointer-events: none;
+}
+.cake-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-top: 30px;
+}
+.cake-img {
+  width: 160px;
+  cursor: pointer;
+  transition: transform 0.2s;
+}
+.cake-img:active {
+  transform: scale(1.08);
+}
+#sparkle {
+  position: absolute;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 10;
+  display: none;
+}
+#confetti-canvas {
+  position: fixed;
+  left: 0; top: 0;
+  width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 5;
+}
+#happy-message {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background: linear-gradient(135deg,#fd8469,#fad0c4,#a1c4fd,#c2e9fb);
+  z-index: 100;
+}
+#happy-message h1 {
+  font-size: 3.5rem;
+  color: #fff;
+  text-shadow: 3px 3px 14px #d63384, 0 0 22px #fff;
+  margin: 0;
+  animation: pop 1.5s cubic-bezier(.57,1.92,.68,.01);
+}
+@keyframes pop {
+  0% { transform: scale(0.5) rotate(-10deg);}
+  60% { transform: scale(1.2) rotate(6deg);}
+  100% { transform: scale(1);}
+}
 </style>
 </head>
 <body>
 
-<h1>🎉 Happy Birthday! 🎂</h1>
-<h2 style="color: white; text-shadow: 1px 1px 4px black;">
-    Wishing you a wonderful year ahead!
-</h2>
+<h1 id="page-title">🎉 Happy Birthday! 🎂</h1>
+<h2 id="page-subtitle">Wishing you a magical day!</h2>
 
-<canvas id="confetti"></canvas>
+<!-- Confetti Canvas -->
+<canvas id="confetti-canvas"></canvas>
+
+<!-- Stars Container -->
+<div class="stars"></div>
+
+<!-- Animated Images -->
+<div class="images"></div>
+
+<!-- Cake Image -->
+<div class="cake-container" id="cake-holder">
+  <img src="IMG_8962.jpeg" class="cake-img" id="cake-img" title="Click for sparkles and song!">
+</div>
+
+<!-- Sparkle effect canvas -->
+<canvas id="sparkle"></canvas>
+
+<!-- Hidden audio -->
+<audio id="birthday-audio" src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
+
+<!-- Happy Birthday Anuja Message -->
+<div id="happy-message">
+  <h1>Happy Birthday Anuja🫶❤️</h1>
+</div>
 
 <script>
-// Confetti Animation Script
-let canvas = document.getElementById("confetti");
-let ctx = canvas.getContext("2d");
+// --- Confetti Effect ---
+const confettiCanvas = document.getElementById('confetti-canvas');
+let cw = window.innerWidth, ch = window.innerHeight;
+confettiCanvas.width = cw;
+confettiCanvas.height = ch;
+let ctx = confettiCanvas.getContext('2d');
+let confettiPieces = [];
+for (let i = 0; i < 130; i++) {
+  confettiPieces.push({
+    x: Math.random() * cw,
+    y: Math.random() * ch,
+    r: Math.random() * 9 + 2,
+    color: `hsl(${Math.random()*360},90%,60%)`,
+    speed: Math.random() * 2 + 1
+  });
+}
+function confettiAnim() {
+  ctx.clearRect(0, 0, cw, ch);
+  confettiPieces.forEach(p => {
+    p.y += p.speed;
+    if (p.y > ch) {
+      p.y = 0;
+      p.x = Math.random() * cw;
+    }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, 2*Math.PI);
+    ctx.fillStyle = p.color;
+    ctx.fill();
+  });
+  requestAnimationFrame(confettiAnim);
+}
+confettiAnim();
 
-canvas.width = window.innerWidth;
-canvas.height = window.innerHeight;
-
-let pieces = [];
-let numberOfPieces = 150;
-
-for (let i = 0; i < numberOfPieces; i++) {
-    pieces.push({
-        x: Math.random() * canvas.width,
-        y: Math.random() * canvas.height,
-        size: Math.random() * 8,
-        speed: Math.random() * 5 + 1,
-        color: "hsl(" + Math.random() * 360 + ", 100%, 50%)",
-    });
+// --- Moving Random Stars (Use the first image as star) ---
+const starsDiv = document.querySelector('.stars');
+for (let i = 0; i < 15; i++) {
+  let st = document.createElement('img');
+  st.src = "IMG_8736.jpeg";
+  st.style.width = (20 + Math.random()*40) + 'px';
+  st.style.left = Math.random()*cw + 'px';
+  st.style.top = Math.random()*ch + 'px';
+  st.style.filter = "drop-shadow(0px 0px 8px hsl("+Math.floor(Math.random()*360)+",100%,70%))";
+  st.style.opacity = (0.75 + Math.random()*0.2);
+  st.animate([
+    { transform: 'translateY(0px) scale(1) rotate(0deg)' },
+    { transform: `translateY(${Math.random()*100 - 50}px) scale(${1+Math.random()*0.7}) rotate(${Math.random()*360}deg)` },
+    { transform: 'translateY(0px) scale(1) rotate(0deg)' }
+  ], {
+    duration: 5000 + Math.random()*3000,
+    iterations: Infinity,
+    direction: "alternate"
+  });
+  starsDiv.appendChild(st);
 }
 
-function update() {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    pieces.forEach(p => {
-        p.y += p.speed;
-        if (p.y > canvas.height) {
-            p.y = 0;
-            p.x = Math.random() * canvas.width;
-        }
-        ctx.beginPath();
-        ctx.arc(p.x, p.y, p.size, 0, Math.PI * 2);
-        ctx.fillStyle = p.color;
-        ctx.fill();
-    });
-    requestAnimationFrame(update);
+// --- Fancy Animated Images (Balloon effect) ---
+const imageNames = [
+  "IMG_8736.jpeg",
+  "IMG_7789.jpeg",
+  "IMG_7744.jpeg",
+  "IMG_7708.jpeg",
+  "IMG_7687.jpeg",
+  "IMG_7753.jpeg",
+  "IMG_4082.jpeg"
+];
+const positions = [
+  {left: '7%', top: '82%', w:90},
+  {left: '22%', top: '84%', w:95},
+  {left: '39%', top: '86%', w:100},
+  {left: '56%', top: '81%', w:88},
+  {left: '67%', top: '85%', w:92},
+  {left: '83%', top: '86%', w:99},
+  {left: '70%', top: '80%', w:105}
+];
+const imagesDiv = document.querySelector('.images');
+imageNames.forEach((imgFile, i) => {
+  let imgEl = document.createElement('img');
+  imgEl.src = imgFile;
+  imgEl.style.left = positions[i].left;
+  imgEl.style.top = positions[i].top;
+  imgEl.style.width = positions[i].w+'px';
+  imgEl.style.animation = `floatUp ${6+i}s linear infinite, spin ${3+i}s linear infinite alternate`;
+  imagesDiv.appendChild(imgEl);
+});
+// Add animation CSS
+const animStyle = document.createElement('style');
+animStyle.textContent = `
+@keyframes floatUp {
+  0% { transform: translateY(0);}
+  80% { opacity: 1; }
+  100% { transform: translateY(-740px); opacity: 0;}
+}
+@keyframes spin {
+  0% { transform: rotate(-10deg);}
+  100% { transform: rotate(15deg);}
+}
+`;
+document.head.appendChild(animStyle);
+
+// --- Cake Sparkle & Song & UI Message Change ---
+const cakeImg = document.getElementById('cake-img');
+const sparkleCanvas = document.getElementById('sparkle');
+sparkleCanvas.width = cw;
+sparkleCanvas.height = ch;
+let sparkleCtx = sparkleCanvas.getContext('2d');
+let sparkles = [];
+
+function drawSparkles() {
+  sparkleCtx.clearRect(0, 0, cw, ch);
+  sparkles.forEach(s => {
+    sparkleCtx.beginPath();
+    sparkleCtx.arc(s.x, s.y, s.r, 0, 2*Math.PI);
+    sparkleCtx.fillStyle = s.color;
+    sparkleCtx.shadowColor = s.color;
+    sparkleCtx.shadowBlur = 9;
+    sparkleCtx.globalAlpha = s.alpha;
+    sparkleCtx.fill();
+    s.r *= 1.07;
+    s.alpha -= 0.02;
+  });
+  sparkles = sparkles.filter(s => s.alpha > 0.07);
+  sparkleCtx.globalAlpha = 1;
+  if (sparkles.length > 0) {
+    requestAnimationFrame(drawSparkles);
+  } else {
+    sparkleCanvas.style.display = "none";
+  }
 }
 
-update();
+cakeImg.onclick = function(e) {
+  // Sparkles
+  let rect = cakeImg.getBoundingClientRect();
+  let cx = rect.left + rect.width/2, cy = rect.top + rect.height/2;
+  sparkleCanvas.style.display = "";
+  for(let i=0;i<60;i++){
+    let angle = Math.random() * 2 * Math.PI;
+    let dist = Math.random() * 120 + 25;
+    let x = cx + Math.cos(angle) * dist;
+    let y = cy + Math.sin(angle) * dist;
+    sparkles.push({
+      x: x,
+      y: y,
+      r: Math.random()*7+3,
+      color: `hsl(${Math.floor(Math.random()*360)},100%,70%)`,
+      alpha: 1
+    });
+  }
+  drawSparkles();
+  // Play music
+  let audio = document.getElementById("birthday-audio");
+  audio.currentTime = 0;
+  audio.play();
+  // Change UI
+  document.getElementById('page-title').style.display = 'none';
+  document.getElementById('page-subtitle').style.display = 'none';
+  document.querySelector('.images').style.display = 'none';
+  document.querySelector('.stars').style.display = 'none';
+  document.getElementById('cake-holder').style.display = 'none';
+  document.getElementById('happy-message').style.display = 'flex';
+};
 </script>
 
 </body>
