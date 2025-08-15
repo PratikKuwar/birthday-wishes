@@ -4,91 +4,114 @@
 <meta charset="UTF-8">
 <title>Birthday Surprise!</title>
 <style>
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Baloo+2|Caveat|Montserrat:900&display=swap');
 body {
   margin: 0;
-  background: linear-gradient(-45deg, #ff9a9e 40%, #fad0c4 100%);
+  background: linear-gradient(-45deg, #ff9a9e 30%, #fad0c4 100%);
   min-height: 100vh;
-  font-family: 'Pacifico', 'Comic Sans MS', cursive;
+  font-family: 'Baloo 2', 'Pacifico', 'Comic Sans MS', cursive;
   overflow-x: hidden;
-  user-select: none;
 }
-@import url('https://fonts.googleapis.com/css?family=Pacifico|Baloo+2|Caveat|Montserrat:900&display=swap');
-
-#wire-container {
+#top-photo-row {
   position: relative;
   width: 100vw;
-  height: 320px;
-  margin: 0;
-  overflow: visible;
+  min-height: 270px;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 48px;
+  margin-top: 40px;
+  z-index: 10;
 }
-.wire-svg {
+.top-hang {
+  width: 195px;
+  height: 270px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 12px solid #fff;
+  background: #fff;
+  box-shadow: 0 8px 38px #e0bbff8c;
+  position: relative;
+  margin-bottom: 22px;
+}
+.rope-top {
+  width: 7px;
+  height: 64px;
+  position: absolute;
+  left: 50%;
+  top: -64px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom,#ffe746,#d6b200 80%);
+  z-index: 15;
+}
+#wire-svg-top {
   position: absolute;
   left: 0; top: 0;
-  width: 100vw; height: 170px;
+  width: 100vw;
+  height: 80px;
   pointer-events: none;
   z-index: 2;
 }
-.photo-hang {
+#side-photo-col {
   position: absolute;
-  width: 165px;
-  height: 230px;
-  border-radius: 18px;
-  border: 11px solid #fff;
-  box-shadow: 0 10px 44px #5555dd99, 0 0 0 #ffe74699;
-  background: #fff;
-  object-fit: cover;
+  right: 0;
+  top: 340px;
+  display: flex;
+  flex-direction: column;
+  gap: 50px;
+  align-items: flex-start;
+  min-width: 210px;
   z-index: 10;
-  transition: box-shadow 0.22s, transform 0.14s;
 }
-.photo-hang:hover {
-  box-shadow: 0 18px 70px #ffe746ae,0 0 24px #d17ad1cc,0 0 13px #fff;
-  transform: scale(1.05) rotate(-2deg);
+.side-hang {
+  width: 170px;
+  height: 230px;
+  object-fit: cover;
+  border-radius: 20px;
+  border: 10px solid #fff;
+  background: #fff;
+  box-shadow: 0 7px 22px #8ed1fc99;
+  position: relative;
 }
-.rope {
-  position: absolute;
+.rope-side {
   width: 7px;
-  background: linear-gradient(to bottom,#ffe746,#d6b200 70%);
-  z-index: 8;
+  height: 55px;
+  position: absolute;
+  left: 50%;
+  top: -55px;
+  transform: translateX(-50%);
+  background: linear-gradient(to bottom,#ffe746,#d6b200 80%);
+  z-index: 15;
 }
-#main-content {
+#wire-svg-side {
+  position: absolute;
+  right: 0; top: 290px;
+  width: 230px;
+  height: 320px;
+  pointer-events: none;
+  z-index: 4;
+}
+#main-center {
   width: 100vw;
-  min-height: calc(100vh - 330px);
+  min-height: 400px;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-}
-#top-photos-row, #bottom-photos-row {
-  width: 100vw;
-  display: flex;
-  justify-content: center;
-  gap: 32px;
-  margin-bottom: 18px;
-  margin-top: 14px;
-}
-.top-photo, .bottom-photo {
-  width: 140px;
-  height: 195px;
-  object-fit: cover;
-  border-radius: 14px;
-  border: 8px solid #fff;
-  box-shadow: 0 6px 30px #ccc3dd99;
-  background: #fff;
+  justify-content: flex-start;
 }
 #bday-message {
-  font-size: 7rem;
+  font-size: 7.5rem;
   color: #fff;
   font-weight: bold;
-  text-shadow: 7px 7px 42px #d63384, 0 0 62px #ffffffbb;
-  text-align: center;
-  margin-bottom: 12px;
-  margin-top: 20px;
-  letter-spacing: 3px;
+  text-shadow: 6px 6px 44px #d63384, 0 0 90px #ffffffbb;
+  margin-bottom: 4px;
+  margin-top: 25px;
+  letter-spacing: 3.2px;
   font-family: 'Pacifico', 'Caveat', cursive;
 }
 .cake-img {
-  width: 460px;
-  margin: 16px 0 0;
+  width: 480px;
+  margin-top: 20px;
   display: block;
   cursor: pointer;
   transition: transform 0.17s, filter 0.18s;
@@ -96,16 +119,22 @@ body {
 }
 .cake-img:active {
   transform: scale(1.13) rotate(-3deg);
-  filter: drop-shadow(0 0 94px #fffedd);
+  filter: drop-shadow(0 0 84px #fffedd);
 }
-#cake-message {
-  font-size:2.6rem;
-  color:#ce1b86;
-  text-align:center;
-  margin:12px 0 0;
-  font-style:italic;
-  letter-spacing:2.2px;
-  font-family: 'Caveat', cursive;
+#cake-label {
+  font-size: 2.8rem;
+  color: #fff;
+  background: #d63384e8;
+  padding: 10px 32px;
+  border-radius: 33px;
+  text-align: center;
+  margin-top: -28px;
+  margin-bottom: 18px;
+  font-family: 'Baloo 2', cursive;
+  letter-spacing: 1.5px;
+  box-shadow: 2px 2px 28px #d6338455, 0 0 40px #fffbb177;
+  position: relative;
+  z-index: 20;
 }
 #confetti-canvas {
   position: fixed;
@@ -121,91 +150,135 @@ body {
   z-index: 2000;
   display: none;
 }
-#happy-message {
+#happy-message-outer {
+  display: none;
   position: fixed;
   top: 0; left: 0; width: 100vw; height: 100vh;
-  background: linear-gradient(135deg,#fd8469,#fad0c4,#a1c4fd 95%,#c2e9fb 99%);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 1000;
-  overflow-y: auto;
+  background: linear-gradient(120deg, #fff68f 40%, #fd8469 80%, #fad0c4 100%);
+  z-index: 1100;
+  overflow: hidden;
 }
-
+#gift-animation-box {
+  position: absolute;
+  left: 50%; top: 50%;
+  transform: translate(-50%,-50%);
+  width: 380px;
+  height: 380px;
+  z-index: 2000;
+  display: flex;
+  align-items: center; justify-content: center;
+}
+.gift-box {
+  width: 290px; height: 290px;
+  position: relative;
+  animation: boxUp 1.5s cubic-bezier(.46,1.6,.4,1.01);
+}
+.gift-lid {
+  position: absolute;
+  width: 290px; height: 60px;
+  background: #fff68f;
+  border: 5px solid #fd8469;
+  border-radius: 17px 17px 10px 10px;
+  left: 0;
+  top: -10px;
+  z-index: 20;
+  animation: lidOpen 1.5s forwards cubic-bezier(.36,1.6,.4,1.01);
+}
+.gift-main {
+  position: absolute;
+  width: 290px; height: 230px; background: #fd8469;
+  border: 7px solid #fff68f;
+  border-radius: 0 0 22px 22px;
+  left: 0; top: 67px; z-index: 10;
+}
+.gift-ribbon {
+  position: absolute; left: 50%; top: 0;
+  transform: translateX(-50%);
+  width: 48px; height: 290px; background: #fff;
+  border-radius: 20px;
+  z-index: 12;
+}
+@keyframes boxUp {
+  0% { transform: scale(0.7) rotate(-6deg);}
+  80% { transform: scale(1.2) rotate(7deg);}
+  100% { transform: scale(1) rotate(0deg);}
+}
+@keyframes lidOpen {
+  0% {transform: translateY(0);}
+  60% {transform: translateY(-145px) rotate(-9deg);}
+  100% {transform: translateY(-180px) rotate(-16deg);}
+}
+#happy-message {
+  position: absolute;
+  left: 50%; top: 48%;
+  transform: translate(-50%,-50%);
+  max-width: 85vw;
+  z-index: 2100;
+  text-align:center;
+}
 #happy-msg-center {
-  font-size: 8rem;
+  font-size: 7.5rem;
   color: #fff;
-  text-shadow: 5px 5px 52px #d63384, 0 0 62px #fff;
-  margin: 12vh auto 0 auto;
-  text-align: center;
-  font-family: 'Pacifico', 'Baloo 2', 'Montserrat', cursive;
+  font-family: 'Pacifico', 'Montserrat', cursive;
   font-weight: bold;
-  letter-spacing: 3px;
-  max-width:90vw;
+  letter-spacing: 3.5px;
+  text-shadow: 6px 6px 58px #d63384,0 0 112px #fff;
+  margin-bottom: 0;
 }
 .sticky-notes {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  max-width:1400px;
-  width:95vw;
-  gap: 35px 30px;
-  margin-top: 2vh;
+  position: absolute;
+  left: 50%;
+  top: 52%;
+  transform: translate(-50%,-50%);
+  width: 80vw;
+  max-width:1300px;
+  height: 85vh;
+  pointer-events: none;
+  z-index: 2000;
 }
 .sticky {
-  width: 270px;
-  min-height: 120px;
-  border-radius: 21px;
-  box-shadow: 3px 4px 13px #f7b14699, 0 0 18px #ffb8d1a8;
-  padding: 28px 20px 22px 32px;
-  font-size: 2rem;
-  color: #fff;
-  font-family: 'Baloo 2', 'Caveat', cursive;
-  line-height: 1.4;
-  word-break: break-word;
-  position: relative;
+  width: 230px;
+  min-height: 110px;
+  border-radius: 15px;
+  box-shadow: 2px 4px 18px #8888a966;
+  padding: 22px 24px 21px 25px;
+  font-size: 1.8rem;
+  font-family: 'Caveat','Baloo 2',cursive;
   font-weight: bold;
-  letter-spacing: 1px;
+  position: absolute;
+  color: #fff;
+  text-shadow: 0 2px 12px #726a7a;
   display: flex;
   flex-direction: column;
+  align-items: flex-end;
   justify-content: center;
-  align-items:flex-start;
-  align-items: center;
-  transition: transform 0.2s;
-}
-.sticky:hover {
-  transform: rotate(-4deg) scale(1.07);
+  margin: 0;
+  border: 4px solid #fff;
 }
 .sticky .emoji {
-  font-size: 2.9rem;
-  position: absolute;
-  right: 15px;
-  bottom: 12px;
+  font-size: 2.4rem;
 }
-.sticky1 {background: #ffc7c7;}
-.sticky2 {background: #fff68f;}
-.sticky3 {background: #c4ffd4;}
-.sticky4 {background: #ffd6fa;}
-.sticky5 {background: #b1e8ff;}
-.sticky6 {background: #f7bfff;}
-.sticky7 {background: #ffdca2;}
-.sticky8 {background: #dcffd7;}
-.sticky9 {background: #fff0ee;}
-.sticky10 {background: #ffefb2;}
+.sticky1 {background: #ffb7a2; left: 7%; top:15%; transform: rotate(-9deg);}
+.sticky2 {background: #f2e86d; left: 71%; top:13%; transform: rotate(13deg);}
+.sticky3 {background: #9ae5d6; left: 19%; top:62%; transform: rotate(-13deg);}
+.sticky4 {background: #e89bf5; left: 80%; top:65%; transform: rotate(12deg);}
+.sticky5 {background: #ffd6fa; left:45%; top:28%; transform: rotate(-7deg);}
+.sticky6 {background: #fc875c; left:62%; top:47%; transform: rotate(21deg);}
+.sticky7 {background: #cdfbe7; left:36%; top:75%; transform: rotate(-17deg);}
+.sticky8 {background: #a1e8ff; left:54%; top:68%; transform: rotate(11deg);}
+.sticky9 {background: #e1fa85; left:87%; top:31%; transform: rotate(19deg);}
+.sticky10{background: #e1cffc; left:8%; top:44%; transform: rotate(-15deg);}
 </style>
 </head>
 <body>
-
-<!-- Sagging Wire and Hanging Portraits -->
-<div id="wire-container">
-  <svg class="wire-svg" width="100vw" height="180">
-    <path id="wire-path"
-      d="M30,80 Q190,25 350,80 Q500,140 630,70 Q800,20 1200,85"
-      stroke="#fffbb1" stroke-width="13" fill="none" filter="url(#glow)" />
+<!-- Top wire and hanging images -->
+<div id="top-photo-row">
+  <svg id="wire-svg-top" width="100vw" height="80">
+    <path d="M30,68 Q230,20 650,68 Q1000,120 1420,68"
+      stroke="#fffbb1" stroke-width="15" fill="none" filter="url(#glow)" />
     <defs>
       <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="11" result="coloredBlur"/>
+        <feGaussianBlur stdDeviation="9" result="coloredBlur"/>
         <feMerge>
           <feMergeNode in="coloredBlur"/>
           <feMergeNode in="SourceGraphic"/>
@@ -213,79 +286,52 @@ body {
       </filter>
     </defs>
   </svg>
+  <div class="rope-top"></div>
+  <img src="IMG_8736.jpeg" class="top-hang" style="margin-right:-6px;">
+  <div class="rope-top"></div>
+  <img src="IMG_7789.jpeg" class="top-hang" style="margin-left:-4px;">
+  <div class="rope-top"></div>
+  <img src="IMG_7744.jpeg" class="top-hang" style="margin-left:-8px;">
+  <div class="rope-top"></div>
+  <img src="IMG_7708.jpeg" class="top-hang" style="margin-left:0;">
 </div>
-<script>
-// Arrange the portrait images along the wire as if "hanging & sagging", spaced, no overlap, some repeated. 
-const wirePhotos = [
-  "IMG_8736.jpeg", "IMG_7789.jpeg", "IMG_7744.jpeg", "IMG_7708.jpeg", 
-  "IMG_7687.jpeg", "IMG_7753.jpeg", "IMG_4082.jpeg", "IMG_8736.jpeg", "IMG_7708.jpeg"
-];
-// Positions along the wire, matching the SVG curve (should fit up to 9 photos depending on the screen).
-const wirePositions = [
-  {left:55, top:90},   // Leftmost
-  {left:190, top:55},
-  {left:325, top:98},
-  {left:460, top:135},
-  {left:600, top:100},
-  {left:735, top:68},
-  {left:875, top:35},
-  {left:1075, top:75},
-  {left:1235, top:110}
-];
-const wireContainer = document.getElementById('wire-container');
-for(let i=0; i<wirePhotos.length; i++) {
-  // Hang rope
-  let r = document.createElement('div');
-  r.className = 'rope';
-  r.style.height = (wirePositions[i].top-10)+'px';
-  r.style.left = (wirePositions[i].left+65)+'px';
-  r.style.top = '10px';
-  r.style.background = 'linear-gradient(to bottom,#ffe746,#d6b200 70%)';
-  wireContainer.appendChild(r);
-  // Photo
-  let im = document.createElement('img');
-  im.src = wirePhotos[i];
-  im.className = 'photo-hang';
-  im.style.left = wirePositions[i].left+'px';
-  im.style.top = wirePositions[i].top+'px';
-  wireContainer.appendChild(im);
-}
-</script>
-
-<!-- Top row of Portraits above message -->
-<div id="top-photos-row">
-  <img src="IMG_8736.jpeg" class="top-photo">
-  <img src="IMG_7744.jpeg" class="top-photo">
-  <img src="IMG_7753.jpeg" class="top-photo">
-  <img src="IMG_7708.jpeg" class="top-photo">
+<!-- Inverted L with images at right -->
+<div id="side-photo-col">
+  <svg id="wire-svg-side" width="220" height="320">
+    <path d="M110,0 Q110,120 110,320 Q175,320 175,190"
+      stroke="#fffbb1" stroke-width="15" fill="none" filter="url(#glow)" />
+  </svg>
+  <div class="rope-side"></div>
+  <img src="IMG_7687.jpeg" class="side-hang" style="margin-top:8px;">
+  <div class="rope-side"></div>
+  <img src="IMG_7753.jpeg" class="side-hang">
+  <div class="rope-side"></div>
+  <img src="IMG_4082.jpeg" class="side-hang">
 </div>
-
-<!-- Main centered birthday text/cake/content -->
-<div id="main-content">
+<!-- Centered birthday message and cake -->
+<div id="main-center">
   <div id="bday-message">Happy Birthday 🎂</div>
+  <div id="cake-label">Surprise here!</div>
   <img src="IMG_8962.jpeg" class="cake-img" id="cake-img" title="Click the cake!">
-  <div id="cake-message">Have a sweet celebration!</div>
 </div>
-
-<!-- Bottom row of Portraits below message/cake -->
-<div id="bottom-photos-row">
-  <img src="IMG_4082.jpeg" class="bottom-photo">
-  <img src="IMG_7789.jpeg" class="bottom-photo">
-  <img src="IMG_7687.jpeg" class="bottom-photo">
-  <img src="IMG_8736.jpeg" class="bottom-photo">
-</div>
-
-<!-- Confetti and Sparkle effect -->
+<!-- Confetti & Sparkle effects -->
 <canvas id="confetti-canvas"></canvas>
 <canvas id="sparkle"></canvas>
-
-<!-- Hidden audio -->
 <audio id="birthday-audio" src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
 
-<!-- Second page: centered Happy Birthday Anuja, sticky notes all around -->
-<div id="happy-message">
-  <div id="happy-msg-center">Happy Birthday Anuja🫶❤️</div>
-  <div class="sticky-notes">
+<!-- Second page: gift animation, message, sticky notes -->
+<div id="happy-message-outer">
+  <div id="gift-animation-box">
+    <div class="gift-box">
+      <div class="gift-lid"></div>
+      <div class="gift-main"></div>
+      <div class="gift-ribbon"></div>
+    </div>
+  </div>
+  <div id="happy-message" style="display:none;">
+    <div id="happy-msg-center">Happy Birthday Anuja🫶❤️</div>
+  </div>
+  <div class="sticky-notes" style="pointer-events: none;">
     <div class="sticky sticky1">"You make my world shine brighter every day." <span class="emoji">✨</span></div>
     <div class="sticky sticky2">"May your heart be filled with laughter and love always!" <span class="emoji">😍</span></div>
     <div class="sticky sticky3">"You are the reason for so many smiles. Happy Birthday!" <span class="emoji">😻</span></div>
@@ -298,9 +344,8 @@ for(let i=0; i<wirePhotos.length; i++) {
     <div class="sticky sticky10">"Keep shining, birthday girl!" <span class="emoji">🫶</span></div>
   </div>
 </div>
-
 <script>
-// --- Confetti Effect ---
+// Confetti
 const confettiCanvas = document.getElementById('confetti-canvas');
 let cw = window.innerWidth, ch = window.innerHeight;
 confettiCanvas.width = cw;
@@ -311,7 +356,7 @@ for (let i = 0; i < 130; i++) {
   confettiPieces.push({
     x: Math.random() * cw,
     y: Math.random() * ch,
-    r: Math.random() * 9 + 2,
+    r: Math.random() * 10 + 3,
     color: `hsl(${Math.random()*360},90%,60%)`,
     speed: Math.random() * 2 + 1
   });
@@ -333,7 +378,7 @@ function confettiAnim() {
 }
 confettiAnim();
 
-// --- Cake: Sparkles, Song, and Page Transition ---
+// Cake click: sparkles, music, gift box opening, then message/stickies
 const cakeImg = document.getElementById('cake-img');
 const sparkleCanvas = document.getElementById('sparkle');
 sparkleCanvas.width = cw;
@@ -347,11 +392,11 @@ function drawSparkles() {
     sparkleCtx.arc(s.x, s.y, s.r, 0, 2*Math.PI);
     sparkleCtx.fillStyle = s.color;
     sparkleCtx.shadowColor = s.color;
-    sparkleCtx.shadowBlur = 9;
+    sparkleCtx.shadowBlur = 11;
     sparkleCtx.globalAlpha = s.alpha;
     sparkleCtx.fill();
     s.r *= 1.07;
-    s.alpha -= 0.02;
+    s.alpha -= 0.019;
   });
   sparkles = sparkles.filter(s => s.alpha > 0.07);
   sparkleCtx.globalAlpha = 1;
@@ -368,13 +413,13 @@ cakeImg.onclick = function(e) {
   sparkleCanvas.style.display = "";
   for(let i=0;i<70;i++){
     let angle = Math.random() * 2 * Math.PI;
-    let dist = Math.random() * 120 + 35;
+    let dist = Math.random() * 120 + 40;
     let x = cx + Math.cos(angle) * dist;
     let y = cy + Math.sin(angle) * dist;
     sparkles.push({
       x: x,
       y: y,
-      r: Math.random()*10+3,
+      r: Math.random()*12+4,
       color: `hsl(${Math.floor(Math.random()*360)},100%,70%)`,
       alpha: 1
     });
@@ -384,14 +429,18 @@ cakeImg.onclick = function(e) {
   let audio = document.getElementById("birthday-audio");
   audio.currentTime = 0;
   audio.play();
-  // Page transition
-  document.getElementById('main-content').style.display = 'none';
-  document.getElementById('top-photos-row').style.display = 'none';
-  document.getElementById('bottom-photos-row').style.display = 'none';
-  document.getElementById('wire-container').style.display = 'none';
-  document.getElementById('happy-message').style.display = 'flex';
+  // Hide first page
+  document.getElementById('main-center').style.display = 'none';
+  document.getElementById('top-photo-row').style.display = 'none';
+  document.getElementById('side-photo-col').style.display = 'none';
+  // Show gift box animation then reveal message/stickies
+  let msgOuter = document.getElementById('happy-message-outer');
+  msgOuter.style.display = 'block';
+  setTimeout(() => {
+    document.getElementById('gift-animation-box').style.display = 'none';
+    document.getElementById('happy-message').style.display = 'block';
+  }, 1800); // after box opens
 };
 </script>
-
 </body>
 </html>
