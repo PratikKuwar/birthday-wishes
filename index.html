@@ -6,8 +6,8 @@
 <style>
 body {
   margin: 0;
-  background: linear-gradient(to right, #ff9a9e, #fad0c4);
-  height: 100vh;
+  background: linear-gradient(to right, #ff9a9e, #fad0c4 80%);
+  min-height: 100vh;
   font-family: 'Comic Sans MS', cursive;
   overflow-x: hidden;
   user-select: none;
@@ -15,7 +15,7 @@ body {
 #lights-row {
   width: 100vw;
   position: relative;
-  height: 200px;
+  height: 240px;
   margin: 0;
   overflow: visible;
   z-index: 2;
@@ -23,92 +23,74 @@ body {
 .light-wire {
   width: 100vw;
   position: absolute;
-  left: 0; top: 35px;
+  left: 0; top: 60px;
+  pointer-events: none;
+}
+.img-rope {
+  height: 60px;
+  width: 7px;
+  background: linear-gradient(to bottom,#ffe746,#d6b200 70%);
+  position: absolute;
+  top: 58px;
+  z-index: 2;
+  left: 50%;
+  transform: translateX(-50%);
 }
 .img-hang {
   position: absolute;
-  top: 60px;
-  width: 100px;
-  height: 140px;
-  border: 7px solid #fff;
-  box-shadow: 0 8px 30px #5555dd60;
-  border-radius: 18px;
+  top: 118px;
+  width: 130px;
+  height: 185px;
+  border: 9px solid #fff;
+  box-shadow: 0 10px 44px #5555dd88, 0 0 0 #ffe74666;
+  border-radius: 24px;
   background: #fff;
   object-fit: cover;
-  transition: box-shadow 0.3s;
-}
-.img-wire-end {
-  width: 0px;
-  height: 0px;
-  position: absolute;
-  top: 35px;
-  left: 50%;
-  /* For future additional decor */
+  transition: box-shadow 0.22s, transform 0.14s;
+  z-index: 3;
 }
 .img-hang:hover {
-  box-shadow: 0 12px 44px #ffe746ee;
+  box-shadow: 0 16px 80px #ffe746ee,0 0 20px #d17ad1cc,0 0 12px #fff;
+  transform: scale(1.05) rotate(-3deg);
 }
-.img-rope {
-  height: 40px;
-  width: 5px;
-  background: linear-gradient(to bottom,#ffe746,#d6b200 60%);
-  position: absolute;
-  top: 35px;
-  left: 50%;
-  z-index: 2;
-  transform: translateX(-50%);
-}
-#cake-area {
+#main-content {
   width: 100vw;
-  height: 500px;
+  height: calc(100vh - 220px);
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
 }
 #bday-message {
-  font-size: 4rem;
-  color: #fcfcfc;
-  text-shadow: 3px 3px 16px #d63384, 0 0 22px #ffffff55;
-  font-family: 'Comic Sans MS', cursive;
+  font-size: 5.5rem;
+  color: #fff;
+  font-weight: bold;
+  text-shadow: 4px 4px 24px #d63384, 0 0 32px #ffffff98;
   text-align: center;
-  margin: 35px 0 12px;
+  margin-bottom: 18px;
+  margin-top: 24px;
   letter-spacing: 2px;
+  font-family: 'Comic Sans MS',cursive;
 }
 .cake-img {
-  width: 260px;
-  margin: 18px 0 0;
+  width: 410px;
+  margin: 16px 0 0;
   display: block;
   cursor: pointer;
-  transition: transform 0.15s;
-  filter: drop-shadow(0 0 22px #fff3bb);
+  transition: transform 0.17s, filter 0.18s;
+  filter: drop-shadow(0 0 42px #fff3bb);
 }
 .cake-img:active {
-  transform: scale(1.08);
-  filter: drop-shadow(0 0 50px #fff3bb);
+  transform: scale(1.09) rotate(-4deg);
+  filter: drop-shadow(0 0 74px #fffedd);
 }
-#happy-message {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  background: linear-gradient(135deg,#fd8469,#fad0c4,#a1c4fd,#c2e9fb);
-  display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  z-index: 1000;
-}
-#happy-message h1 {
-  font-size: 4rem;
-  color: #fff;
-  text-shadow: 3px 3px 18px #d63384, 0 0 52px #fff;
-  margin: 0;
-  animation: pop 1.5s cubic-bezier(.57,1.92,.68,.01);
-  text-align: center;
-}
-@keyframes pop {
-  0% { transform: scale(0.5) rotate(-12deg);}
-  62% { transform: scale(1.2) rotate(5deg);}
-  100% { transform: scale(1);}
+#cake-message {
+  font-size:2.2rem;
+  color:#ce1b86;
+  text-align:center; 
+  margin:12px 0 0;
+  font-style:italic;
+  letter-spacing:1.5px;
 }
 #confetti-canvas {
   position: fixed;
@@ -124,6 +106,74 @@ body {
   z-index: 2000;
   display: none;
 }
+#happy-message {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: linear-gradient(135deg,#fd8469,#fad0c4 80%,#a1c4fd 95%,#c2e9fb 99%);
+  display: none;
+  align-items: center;
+  justify-content: flex-start;
+  flex-direction: column;
+  z-index: 1000;
+  overflow-y: auto;
+}
+#happy-message h1 {
+  font-size: 5.6rem;
+  color: #fff;
+  text-shadow: 3px 3px 26px #d63384, 0 0 62px #fff;
+  margin-top: 2.5vh;
+  animation: pop 1.6s cubic-bezier(.57,1.92,.68,.01);
+  text-align: center;
+  font-family: 'Comic Sans MS', cursive;
+  letter-spacing: 2.5px;
+}
+@keyframes pop {
+  0% { transform: scale(0.48) rotate(-12deg);}
+  68% { transform: scale(1.2) rotate(6deg);}
+  100% { transform: scale(1);}
+}
+.sticky-notes {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 3vh;
+  max-width:1200px;
+  width:95vw;
+  gap: 24px;
+}
+.sticky {
+  width: 270px;
+  min-height: 120px;
+  background: #fff68f;
+  border-radius: 18px;
+  box-shadow: 2px 3px 12px #f7b14699, 0 0 18px #ffb8d1a8;
+  padding: 26px 24px 19px 32px;
+  font-size: 1.45rem;
+  font-style: italic;
+  color: #d63384;
+  position: relative;
+  line-height: 1.4;
+  word-break: break-word;
+  font-family: 'Comic Sans MS',cursive;
+  overflow: visible;
+}
+.sticky::after {
+  content: "";
+  display: block;
+  position: absolute;
+  top: -14px;
+  right: 18px;
+  width: 34px;
+  height: 34px;
+  background: url('https://cdn-icons-png.flaticon.com/128/3793/3793614.png') no-repeat center/cover;
+  opacity: 0.3;
+}
+.sticky .emoji {
+  font-size: 2.2rem;
+  position: absolute;
+  right: 10px;
+  top: 10px;
+}
 </style>
 </head>
 <body>
@@ -131,12 +181,12 @@ body {
 <!-- Decorative Lighting Wire + Hanging Images -->
 <div id="lights-row">
   <!-- SVG wire for glow and festive feeling -->
-  <svg class="light-wire" height="80" width="100vw">
-    <path d="M0,40 Q250,10 500,40 Q750,80 1000,40"
-      stroke="#f9dc4a" stroke-width="10" fill="none" filter="url(#glow)" />
+  <svg class="light-wire" width="100vw" height="100">
+    <path d="M0,60 Q230,7 480,60 Q820,145 1000,60"
+      stroke="#f9dc4a" stroke-width="11" fill="none" filter="url(#glow)" />
     <defs>
       <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-        <feGaussianBlur stdDeviation="7" result="coloredBlur"/>
+        <feGaussianBlur stdDeviation="9.5" result="coloredBlur"/>
         <feMerge>
           <feMergeNode in="coloredBlur"/>
           <feMergeNode in="SourceGraphic"/>
@@ -145,26 +195,26 @@ body {
     </defs>
   </svg>
 </div>
-
-<!-- Hanging images: portrait, bordered, arranged -->
 <script>
 const portraitImages = [
   "IMG_8736.jpeg", "IMG_7789.jpeg", "IMG_7744.jpeg",
   "IMG_7708.jpeg", "IMG_7687.jpeg", "IMG_7753.jpeg", "IMG_4082.jpeg"
 ];
 const hangDiv = document.getElementById('lights-row');
+const hangPosPerc = [7, 22, 37, 52, 67, 81, 92];
 for(let i=0; i<portraitImages.length; i++) {
-  let perc = (10 + i*13) + '%'; // even spacing
-  let img = document.createElement('img');
-  img.src = portraitImages[i];
-  img.className = "img-hang";
-  img.style.left = perc;
-  img.style.top = "77px";
-  hangDiv.appendChild(img);
+  let perc = hangPosPerc[i] + '%';
+  // Rope
   let rope = document.createElement('div');
   rope.className = "img-rope";
   rope.style.left = perc;
   hangDiv.appendChild(rope);
+  // Hanging image
+  let img = document.createElement('img');
+  img.src = portraitImages[i];
+  img.className = "img-hang";
+  img.style.left = perc;
+  hangDiv.appendChild(img);
 }
 </script>
 
@@ -173,21 +223,27 @@ for(let i=0; i<portraitImages.length; i++) {
 <!-- Sparkle effect canvas -->
 <canvas id="sparkle"></canvas>
 
-<!-- Main birthday message and big cake center -->
-<div id="cake-area">
+<!-- Centered main birthday text + cake -->
+<div id="main-content">
   <div id="bday-message">Happy Birthday 🎂</div>
   <img src="IMG_8962.jpeg" class="cake-img" id="cake-img" title="Click the cake!">
-  <div id="cake-message" style="font-size:2rem;color:#ce1b86; text-align:center; margin-top:12px;">
-    Have a sweet celebration!
-  </div>
+  <div id="cake-message">Have a sweet celebration!</div>
 </div>
 
 <!-- Hidden audio -->
 <audio id="birthday-audio" src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
 
-<!-- Happy Birthday Anuja Message -->
+<!-- Happy Birthday Anuja Message + sticky notes, emojis -->
 <div id="happy-message">
   <h1>Happy Birthday Anuja🫶❤️</h1>
+  <div class="sticky-notes">
+    <div class="sticky">"You make my world shine brighter every day." <span class="emoji">✨</span></div>
+    <div class="sticky">"May your heart be filled with laughter and love always!" <span class="emoji">😍</span></div>
+    <div class="sticky">"You are the reason for so many smiles. Happy Birthday!" <span class="emoji">😻</span></div>
+    <div class="sticky">"To more memories, more adventures, and all the love you deserve." <span class="emoji">🫶</span></div>
+    <div class="sticky">"Wishing you happiness, hugs, and sweetness forever." <span class="emoji">😘</span></div>
+    <div class="sticky">"Life is more beautiful with you in it. Happy birthday!!" <span class="emoji">❤️</span></div>
+  </div>
 </div>
 
 <script>
@@ -224,7 +280,7 @@ function confettiAnim() {
 }
 confettiAnim();
 
-// --- Cake Sparkle, Song, and Center Message ---
+// --- Cake Sparkle, Song, and UI Change ---
 const cakeImg = document.getElementById('cake-img');
 const sparkleCanvas = document.getElementById('sparkle');
 sparkleCanvas.width = cw;
@@ -278,7 +334,7 @@ cakeImg.onclick = function(e) {
   audio.currentTime = 0;
   audio.play();
   // Change UI
-  document.getElementById('cake-area').style.display = 'none';
+  document.getElementById('main-content').style.display = 'none';
   document.getElementById('lights-row').style.display = 'none';
   document.getElementById('happy-message').style.display = 'flex';
 };
