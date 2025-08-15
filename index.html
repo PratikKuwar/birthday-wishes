@@ -9,39 +9,106 @@ body {
   background: linear-gradient(to right, #ff9a9e, #fad0c4);
   height: 100vh;
   font-family: 'Comic Sans MS', cursive;
-  overflow: hidden;
+  overflow-x: hidden;
   user-select: none;
 }
-h1, h2 {
-  color: white;
-  text-shadow: 2px 2px 8px #000;
-  margin-top: 40px;
-  text-align: center;
+#lights-row {
+  width: 100vw;
+  position: relative;
+  height: 200px;
+  margin: 0;
+  overflow: visible;
+  z-index: 2;
 }
-.images img, .stars img {
+.light-wire {
+  width: 100vw;
   position: absolute;
-  pointer-events: none;
+  left: 0; top: 35px;
 }
-.cake-container {
+.img-hang {
+  position: absolute;
+  top: 60px;
+  width: 100px;
+  height: 140px;
+  border: 7px solid #fff;
+  box-shadow: 0 8px 30px #5555dd60;
+  border-radius: 18px;
+  background: #fff;
+  object-fit: cover;
+  transition: box-shadow 0.3s;
+}
+.img-wire-end {
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  /* For future additional decor */
+}
+.img-hang:hover {
+  box-shadow: 0 12px 44px #ffe746ee;
+}
+.img-rope {
+  height: 40px;
+  width: 5px;
+  background: linear-gradient(to bottom,#ffe746,#d6b200 60%);
+  position: absolute;
+  top: 35px;
+  left: 50%;
+  z-index: 2;
+  transform: translateX(-50%);
+}
+#cake-area {
+  width: 100vw;
+  height: 500px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  margin-top: 30px;
+  justify-content: center;
+}
+#bday-message {
+  font-size: 4rem;
+  color: #fcfcfc;
+  text-shadow: 3px 3px 16px #d63384, 0 0 22px #ffffff55;
+  font-family: 'Comic Sans MS', cursive;
+  text-align: center;
+  margin: 35px 0 12px;
+  letter-spacing: 2px;
 }
 .cake-img {
-  width: 160px;
+  width: 260px;
+  margin: 18px 0 0;
+  display: block;
   cursor: pointer;
-  transition: transform 0.2s;
+  transition: transform 0.15s;
+  filter: drop-shadow(0 0 22px #fff3bb);
 }
 .cake-img:active {
   transform: scale(1.08);
+  filter: drop-shadow(0 0 50px #fff3bb);
 }
-#sparkle {
-  position: absolute;
-  left: 0; top: 0; width: 100vw; height: 100vh;
-  pointer-events: none;
-  z-index: 10;
+#happy-message {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  background: linear-gradient(135deg,#fd8469,#fad0c4,#a1c4fd,#c2e9fb);
   display: none;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  z-index: 1000;
+}
+#happy-message h1 {
+  font-size: 4rem;
+  color: #fff;
+  text-shadow: 3px 3px 18px #d63384, 0 0 52px #fff;
+  margin: 0;
+  animation: pop 1.5s cubic-bezier(.57,1.92,.68,.01);
+  text-align: center;
+}
+@keyframes pop {
+  0% { transform: scale(0.5) rotate(-12deg);}
+  62% { transform: scale(1.2) rotate(5deg);}
+  100% { transform: scale(1);}
 }
 #confetti-canvas {
   position: fixed;
@@ -50,51 +117,70 @@ h1, h2 {
   pointer-events: none;
   z-index: 5;
 }
-#happy-message {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
+#sparkle {
+  position: absolute;
+  left: 0; top: 0; width: 100vw; height: 100vh;
+  pointer-events: none;
+  z-index: 2000;
   display: none;
-  align-items: center;
-  justify-content: center;
-  flex-direction: column;
-  background: linear-gradient(135deg,#fd8469,#fad0c4,#a1c4fd,#c2e9fb);
-  z-index: 100;
-}
-#happy-message h1 {
-  font-size: 3.5rem;
-  color: #fff;
-  text-shadow: 3px 3px 14px #d63384, 0 0 22px #fff;
-  margin: 0;
-  animation: pop 1.5s cubic-bezier(.57,1.92,.68,.01);
-}
-@keyframes pop {
-  0% { transform: scale(0.5) rotate(-10deg);}
-  60% { transform: scale(1.2) rotate(6deg);}
-  100% { transform: scale(1);}
 }
 </style>
 </head>
 <body>
 
-<h1 id="page-title">🎉 Happy Birthday! 🎂</h1>
-<h2 id="page-subtitle">Wishing you a magical day!</h2>
-
-<!-- Confetti Canvas -->
-<canvas id="confetti-canvas"></canvas>
-
-<!-- Stars Container -->
-<div class="stars"></div>
-
-<!-- Animated Images -->
-<div class="images"></div>
-
-<!-- Cake Image -->
-<div class="cake-container" id="cake-holder">
-  <img src="IMG_8962.jpeg" class="cake-img" id="cake-img" title="Click for sparkles and song!">
+<!-- Decorative Lighting Wire + Hanging Images -->
+<div id="lights-row">
+  <!-- SVG wire for glow and festive feeling -->
+  <svg class="light-wire" height="80" width="100vw">
+    <path d="M0,40 Q250,10 500,40 Q750,80 1000,40"
+      stroke="#f9dc4a" stroke-width="10" fill="none" filter="url(#glow)" />
+    <defs>
+      <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+        <feGaussianBlur stdDeviation="7" result="coloredBlur"/>
+        <feMerge>
+          <feMergeNode in="coloredBlur"/>
+          <feMergeNode in="SourceGraphic"/>
+        </feMerge>
+      </filter>
+    </defs>
+  </svg>
 </div>
 
+<!-- Hanging images: portrait, bordered, arranged -->
+<script>
+const portraitImages = [
+  "IMG_8736.jpeg", "IMG_7789.jpeg", "IMG_7744.jpeg",
+  "IMG_7708.jpeg", "IMG_7687.jpeg", "IMG_7753.jpeg", "IMG_4082.jpeg"
+];
+const hangDiv = document.getElementById('lights-row');
+for(let i=0; i<portraitImages.length; i++) {
+  let perc = (10 + i*13) + '%'; // even spacing
+  let img = document.createElement('img');
+  img.src = portraitImages[i];
+  img.className = "img-hang";
+  img.style.left = perc;
+  img.style.top = "77px";
+  hangDiv.appendChild(img);
+  let rope = document.createElement('div');
+  rope.className = "img-rope";
+  rope.style.left = perc;
+  hangDiv.appendChild(rope);
+}
+</script>
+
+<!-- Confetti -->
+<canvas id="confetti-canvas"></canvas>
 <!-- Sparkle effect canvas -->
 <canvas id="sparkle"></canvas>
+
+<!-- Main birthday message and big cake center -->
+<div id="cake-area">
+  <div id="bday-message">Happy Birthday 🎂</div>
+  <img src="IMG_8962.jpeg" class="cake-img" id="cake-img" title="Click the cake!">
+  <div id="cake-message" style="font-size:2rem;color:#ce1b86; text-align:center; margin-top:12px;">
+    Have a sweet celebration!
+  </div>
+</div>
 
 <!-- Hidden audio -->
 <audio id="birthday-audio" src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
@@ -138,73 +224,7 @@ function confettiAnim() {
 }
 confettiAnim();
 
-// --- Moving Random Stars (Use the first image as star) ---
-const starsDiv = document.querySelector('.stars');
-for (let i = 0; i < 15; i++) {
-  let st = document.createElement('img');
-  st.src = "IMG_8736.jpeg";
-  st.style.width = (20 + Math.random()*40) + 'px';
-  st.style.left = Math.random()*cw + 'px';
-  st.style.top = Math.random()*ch + 'px';
-  st.style.filter = "drop-shadow(0px 0px 8px hsl("+Math.floor(Math.random()*360)+",100%,70%))";
-  st.style.opacity = (0.75 + Math.random()*0.2);
-  st.animate([
-    { transform: 'translateY(0px) scale(1) rotate(0deg)' },
-    { transform: `translateY(${Math.random()*100 - 50}px) scale(${1+Math.random()*0.7}) rotate(${Math.random()*360}deg)` },
-    { transform: 'translateY(0px) scale(1) rotate(0deg)' }
-  ], {
-    duration: 5000 + Math.random()*3000,
-    iterations: Infinity,
-    direction: "alternate"
-  });
-  starsDiv.appendChild(st);
-}
-
-// --- Fancy Animated Images (Balloon effect) ---
-const imageNames = [
-  "IMG_8736.jpeg",
-  "IMG_7789.jpeg",
-  "IMG_7744.jpeg",
-  "IMG_7708.jpeg",
-  "IMG_7687.jpeg",
-  "IMG_7753.jpeg",
-  "IMG_4082.jpeg"
-];
-const positions = [
-  {left: '7%', top: '82%', w:90},
-  {left: '22%', top: '84%', w:95},
-  {left: '39%', top: '86%', w:100},
-  {left: '56%', top: '81%', w:88},
-  {left: '67%', top: '85%', w:92},
-  {left: '83%', top: '86%', w:99},
-  {left: '70%', top: '80%', w:105}
-];
-const imagesDiv = document.querySelector('.images');
-imageNames.forEach((imgFile, i) => {
-  let imgEl = document.createElement('img');
-  imgEl.src = imgFile;
-  imgEl.style.left = positions[i].left;
-  imgEl.style.top = positions[i].top;
-  imgEl.style.width = positions[i].w+'px';
-  imgEl.style.animation = `floatUp ${6+i}s linear infinite, spin ${3+i}s linear infinite alternate`;
-  imagesDiv.appendChild(imgEl);
-});
-// Add animation CSS
-const animStyle = document.createElement('style');
-animStyle.textContent = `
-@keyframes floatUp {
-  0% { transform: translateY(0);}
-  80% { opacity: 1; }
-  100% { transform: translateY(-740px); opacity: 0;}
-}
-@keyframes spin {
-  0% { transform: rotate(-10deg);}
-  100% { transform: rotate(15deg);}
-}
-`;
-document.head.appendChild(animStyle);
-
-// --- Cake Sparkle & Song & UI Message Change ---
+// --- Cake Sparkle, Song, and Center Message ---
 const cakeImg = document.getElementById('cake-img');
 const sparkleCanvas = document.getElementById('sparkle');
 sparkleCanvas.width = cw;
@@ -258,11 +278,8 @@ cakeImg.onclick = function(e) {
   audio.currentTime = 0;
   audio.play();
   // Change UI
-  document.getElementById('page-title').style.display = 'none';
-  document.getElementById('page-subtitle').style.display = 'none';
-  document.querySelector('.images').style.display = 'none';
-  document.querySelector('.stars').style.display = 'none';
-  document.getElementById('cake-holder').style.display = 'none';
+  document.getElementById('cake-area').style.display = 'none';
+  document.getElementById('lights-row').style.display = 'none';
   document.getElementById('happy-message').style.display = 'flex';
 };
 </script>
