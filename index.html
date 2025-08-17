@@ -10,7 +10,7 @@ body {
   margin: 0;
   min-height: 100vh;
   font-family: 'Baloo 2', 'Pacifico', cursive;
-  background: radial-gradient(ellipse at center, #fff3fa 0%, #feb7d4 60%, #c7fafd 100%);
+  background: radial-gradient(ellipse at center, #fff3fa 1%, #feb7d4 48%, #c7fafd 100%);
   overflow-x: hidden;
 }
 #l-layout {
@@ -19,66 +19,68 @@ body {
   min-height: 100vh;
   box-sizing: border-box;
   z-index: 3;
-  display: flex;
-  align-items: stretch;
-}
-#content-area {
-  position: relative;
-  width: 100vw;
-  min-height: 100vh;
-  display: flex;
-  align-items: stretch;
 }
 #l-horizontal {
   display: flex;
   flex-direction: row;
+  gap: 22px;
   position: absolute;
-  left: 4vw;
-  top: 5vw;
+  left: 4vw; top: 5vw;
   z-index: 10;
-  gap: 0;
-}
-.l-img { /* Used for both horizontal and vertical images */
-  width: 26vw;
-  max-width: 230px;
-  height: 36vw;
-  max-height: 318px;
-  object-fit: cover;
-  border-radius: 24px;
-  border: 10px solid white;
-  box-shadow: 0 12px 38px #da6bbf69;
-  margin: 0;
 }
 #l-vertical {
   display: flex;
   flex-direction: column;
-  gap: 0;
+  gap: 22px;
   position: absolute;
-  left: 4vw;
-  top: 5vw;
+  left: 4vw; top: 5vw;
   z-index: 10;
 }
-.l-img.vert {
-  width: 26vw;
-  max-width: 230px;
-  height: 36vw;
-  max-height: 318px;
-  margin-bottom: 0;
+.polaroid-frame {
+  background: #fff;
+  border-radius: 20px;
+  box-shadow: 0 4px 26px #efe7da99, 0 0 18px #fff;
+  border: 2px solid #f3c7b3;
+  width: 140px; 
+  height: 192px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  position: relative;
+  overflow: visible;
+}
+@media(min-width:700px){
+  .polaroid-frame{width:190px;height:240px;}
+}
+.polaroid-pin {
+  margin-top: 2px;
+  font-size: 1.4rem;
+  position: absolute;
+  top: 4px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 6;
+  pointer-events: none;
+}
+.polaroid-img {
+  width: 82%;
+  height: 150px;
   object-fit: cover;
+  margin-top: 28px;
+  border-radius: 11px;
+  box-shadow: 0 3px 12px #ccc3dd55;
+  border: 2px solid #faf6ee;
 }
-@media(max-width:900px){
-  #l-horizontal, #l-vertical {left:2vw;}
-  .l-img, .l-img.vert {width:27vw; max-width:152px; height:45vw; max-height:155px;}
-}
-@media(max-width:600px){
-  #l-horizontal,#l-vertical{left:1vw;}
-  .l-img,.l-img.vert{width:36vw; max-width:120px; height:56vw; max-height:80px;}
+@media(max-width:700px){
+  .polaroid-frame{width:106px;height:145px;}
+  .polaroid-img{height:92px;}
+  .polaroid-pin{font-size:1.1rem;}
 }
 #center-content {
-  /* Sit inside the L; margin-left = width of vert images + gap, margin-top = height of horizontal images + gap */
+  /* inside the L between images */
   position: absolute;
-  left: calc(26vw + 6vw);
-  top: calc(36vw + 4vw);
+  left: calc(150px + 38px + 3vw);
+  top: calc(192px + 38px + 3vw);
   right: 6vw;
   bottom: 7vw;
   display: flex;
@@ -88,127 +90,101 @@ body {
   width: calc(100vw - 32vw);
   justify-content: flex-start;
 }
-@media(max-width:900px){
-  #center-content{left:calc(27vw + 3vw); top:calc(45vw + 2vw); right:3vw; width:calc(100vw - 30vw);}
-}
-@media(max-width:600px){
-  #center-content{left:calc(36vw + 2vw); top:calc(56vw + 3vw); right:1vw; width:calc(100vw - 40vw);}
+@media(max-width:700px){
+  #center-content{left:calc(106px + 17px + 1vw);top:calc(145px + 17px + 1vw);}
 }
 .bday-text {
-  font-size: 6vw;
+  font-size: 2.1rem;
   color: #fff;
   font-family: 'Pacifico', 'Caveat', cursive;
   font-weight: bold;
-  text-shadow: 3px 4px 45px #ec1a77a0, 0 0 77px #fff;
-  letter-spacing: 2vw;
-  margin: 0 0 24px 0;
+  text-shadow: 2px 3px 40px #ec1a77a0, 0 0 73px #fff;
+  letter-spacing: .09em;
+  margin: 0 0 16px 0;
   text-align: center;
   line-height: 1.07;
-  animation: scaleGlow 1.2s cubic-bezier(.81,2.0,.54,.91);
-  width: 95%;
+  width: 90%;
 }
-@keyframes scaleGlow {
-  0% {transform:scale(0.7);}
-  70% {transform:scale(1.12);}
-  100% {transform:scale(1);}
-}
+@media(min-width:600px){.bday-text{font-size:2.9rem;}}
 #surprise-gif {
-  width: 225px;
-  max-width: 60vw;
-  border-radius: 19px;
-  box-shadow: 0 7px 28px #ffe3f991;
-  margin-top: 24px;
+  width: 170px;
+  max-width: 40vw;
+  border-radius: 18px;
+  box-shadow: 0 7px 14px #ffe3f991;
+  margin-top: 18px;
+  margin-bottom: 12px;
   cursor: pointer;
-  animation: popIn .9s cubic-bezier(.44,2.2,.38,1.1);
 }
-@keyframes popIn {
-  0%{transform:scale(.82); opacity:0;}
-  77%{transform:scale(1.1); opacity:1;}
-  100%{transform:scale(1);}
-}
-@media(max-width:900px){
-  #surprise-gif{width:32vw;max-width:140px;}
-}
-@media(max-width:600px){
-  #surprise-gif{width:56vw;max-width:110px;}
-}
-
+@media(min-width:700px){#surprise-gif{width:220px;}}
 /* --- Second Page --- */
 #transition-page {
-  display: none;
-  position: fixed;
-  width: 100vw; 
-  height: 100vh; 
-  top: 0; left: 0; z-index: 5000;
-  background: radial-gradient(circle at center, #222 40%, #6d29bd 100%);
+  display:none;
+  position:fixed;
+  width:100vw; height:100vh; top:0; left:0; z-index:5000;
+  background: radial-gradient(circle at center, #222 50%, #763a96 100%);
   overflow:hidden;
-  transition: background .7s;
 }
-
-/* Centered, medium GIF for transition */
 #full-gif {
   position: absolute;
-  left: 50%; 
-  top: 41vh;
+  left: 50%; top: 42vh;
   transform: translate(-50%, 0);
-  width: 220px; height: 220px;
+  width: 320px; height: 320px;
   display: flex;
   align-items: center; justify-content: center;
-  z-index: 3001;
+  z-index: 3002;
   opacity: 0;
   animation: gifFadeIn .9s cubic-bezier(.68,1.8,.40,1.01) forwards;
 }
 @keyframes gifFadeIn {
   0% {opacity:0;}
-  80% {opacity:1;}
+  90% {opacity:1;}
   100% {opacity:1;}
 }
 #full-gif img {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 7vw;
+  border-radius: 32px;
   box-shadow: 0 8px 40px #fec7f799;
 }
-
-/* Happy Birthday Centered, spaced from top/sides */
+@media(max-width:700px){
+  #full-gif{width:170px;height:170px;}
+}
 #transition-msg {
   position: absolute;
   left: 50%;
-  top: 44vh;
-  transform: translate(-50%, 0);
-  font-size: 2.7rem;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 1.3rem;
   color: #fff;
-  font-family: 'Pacifico','Baloo 2',cursive; font-weight:bold;
-  text-shadow:8px 8px 50px #e775bb,0 0 60px #fff;
+  font-family: 'Pacifico','Baloo 2',cursive;
+  font-weight: bold;
+  text-shadow: 8px 8px 50px #e775bb,0 0 60px #fff;
   letter-spacing: .07em;
   text-align: center;
+  width: 80vw;
   opacity: 0;
   pointer-events: none;
   z-index: 3010;
-  animation: textPop 1.2s 2.9s cubic-bezier(.54,2.1,.6,.95) forwards;
-  width: 80vw;
+  animation: textPop 1.2s 3.2s cubic-bezier(.54,2.1,.6,.95) forwards;
 }
-@media(max-width:600px){
-  #full-gif{width:102px;height:102px;}
-  #transition-msg{font-size:1.1rem;}
+@media(min-width:700px){
+  #transition-msg{font-size:2rem;width:50vw;}
 }
 @keyframes textPop {
   from{opacity:0;transform:translateY(-30px) scale(.85);}
   60%{opacity:1;transform:translateY(7px) scale(1.09);}
   to{opacity:1;transform:translateY(0) scale(1);}
 }
-
-/* Sticky notes container & style */
 #transition-sticky-notes {
-  position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 3050; pointer-events: none;
+  position:fixed; left:0; top:0; width:100vw; height:100vh; z-index:3050; pointer-events:none;
 }
 .sticky-note {
   width: 120px; min-height: 42px;
-  border-radius: 15px;
+  border-radius: 13px;
   box-shadow: 2px 7px 22px #8888a966;
-  padding: 9px 10px 10px 12px;
-  font-size: .95rem; font-family: 'Caveat','Baloo 2',cursive; font-weight:bold;
+  padding: 9px 8px 7px 10px;
+  font-size: .89rem; font-family:'Caveat','Baloo 2',cursive; font-weight: bold;
   color: #222; letter-spacing: .8px;
   display: flex; align-items: center; justify-content: center;
   margin: 0; border: 2px solid #fff; 
@@ -216,14 +192,11 @@ body {
   position: absolute;
   overflow: visible;
   white-space: break-spaces;
-  background: #ffe3e7;
   transition: opacity .48s, transform .38s;
 }
 .sticky-note .pin {
-  width: 15px; height: 15px;
-  background: url('https://cdn-icons-png.flaticon.com/128/346/346586.png') no-repeat center/cover;
+  font-size:1.3rem;
   position: absolute; left: 50%; top: -7px; transform: translateX(-50%);
-  box-shadow: 0 1px 6px #2227;
 }
 .sticky-note .emoji {font-size:.91rem; margin-left:4px;}
 .sticky-1 {background:#fffbab;}
@@ -240,28 +213,49 @@ body {
 </head>
 <body>
 <div id="l-layout">
-  <div id="content-area">
-    <!-- Horizontal bar (top) -->
-    <div id="l-horizontal">
-      <img src="IMG_8736.jpeg" class="l-img">
-      <img src="IMG_7789.jpeg" class="l-img">
-      <img src="IMG_7744.jpeg" class="l-img">
+  <!-- Horizontal (top row) -->
+  <div id="l-horizontal">
+    <div class="polaroid-frame">
+      <div class="polaroid-pin">📌</div>
+      <img src="IMG_8736.jpeg" class="polaroid-img">
     </div>
-    <!-- Vertical bar (left, shares IMG_8736.jpeg as corner/top) -->
-    <div id="l-vertical">
-      <img src="IMG_8736.jpeg" class="l-img vert">
-      <img src="IMG_7708.jpeg" class="l-img vert">
-      <img src="IMG_7687.jpeg" class="l-img vert">
-      <img src="IMG_7753.jpeg" class="l-img vert">
-      <img src="IMG_4082.jpeg" class="l-img vert">
+    <div class="polaroid-frame">
+      <div class="polaroid-pin">📌</div>
+      <img src="IMG_7789.jpeg" class="polaroid-img">
     </div>
-    <div id="center-content">
-      <div class="bday-text">Happy Birthday 🎂</div>
-      <img src="IMG_8963.gif" id="surprise-gif" alt="Surprise Here GIF">
+    <div class="polaroid-frame">
+      <div class="polaroid-pin">📌</div>
+      <img src="IMG_7744.jpeg" class="polaroid-img">
     </div>
   </div>
+  <!-- Vertical (left col) -->
+  <div id="l-vertical">
+    <div class="polaroid-frame">
+      <div class="polaroid-pin">📌</div>
+      <img src="IMG_8736.jpeg" class="polaroid-img">
+    </div>
+    <div class="polaroid-frame">
+      <div class="polaroid-pin">📌</div>
+      <img src="IMG_7708.jpeg" class="polaroid-img">
+    </div>
+    <div class="polaroid-frame">
+      <div class="polaroid-pin">📌</div>
+      <img src="IMG_7687.jpeg" class="polaroid-img">
+    </div>
+    <div class="polaroid-frame">
+      <div class="polaroid-pin">📌</div>
+      <img src="IMG_7753.jpeg" class="polaroid-img">
+    </div>
+    <div class="polaroid-frame">
+      <div class="polaroid-pin">📌</div>
+      <img src="IMG_4082.jpeg" class="polaroid-img">
+    </div>
+  </div>
+  <div id="center-content">
+    <div class="bday-text">Happy Birthday 🎂</div>
+    <img src="IMG_8963.gif" id="surprise-gif" alt="Surprise Here GIF">
+  </div>
 </div>
-
 <!-- Transition Page -->
 <div id="transition-page">
   <div id="full-gif">
@@ -321,24 +315,23 @@ transitionPage.addEventListener("click", function(e) {
   const x = e.clientX;
   const y = e.clientY;
   const vw = window.innerWidth, vh = window.innerHeight;
-  const msgRect = {x: vw/2-70, y: vh*0.44-45, w:140, h:90};
+  const msgRect = {x: vw/2-60, y: vh/2-28, w:120, h:56};
   if(x>msgRect.x && x<msgRect.x+msgRect.w && y>msgRect.y && y<msgRect.y+msgRect.h)
     return;
   if(stickyIndex >= stickyContents.length) stickyIndex = 0;
   const el = document.createElement('div');
   el.className = "sticky-note " + stickyColors[stickyIndex%stickyColors.length];
-  el.innerHTML = `<div class="pin"></div>${stickyContents[stickyIndex]}`;
+  el.innerHTML = `<div class="pin">📌</div>${stickyContents[stickyIndex]}`;
   stickyIndex++;
   el.style.left = `${x-60}px`;
-  el.style.top = `${y-28}px`;
+  el.style.top = `${y-22}px`;
   el.style.opacity = "0";
-  const deg = Math.floor(Math.random()*20-10);
+  const deg = Math.floor(Math.random()*18-9);
   el.style.transform = `rotate(${deg}deg) scale(0.81)`;
-  // No overlap
   let overlap = false, notes = stickyNoteContainer.children;
   for(let i=0;i<notes.length;i++) {
     const prev = notes[i].getBoundingClientRect();
-    const cur = {left:x-60, right:x+60, top:y-28, bottom:y+62};
+    const cur = {left:x-60, right:x+60, top:y-22, bottom:y+50};
     if(!(prev.right<cur.left||prev.left>cur.right||prev.bottom<cur.top||prev.top>cur.bottom)) {
       overlap = true; break;
     }
