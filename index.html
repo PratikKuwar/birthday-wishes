@@ -9,129 +9,152 @@
 body {
   margin: 0;
   min-height: 100vh;
-  background: radial-gradient(ellipse at center, #fff3fa 0%, #feb7d4 70%, #c7fafd 100%);
   font-family: 'Baloo 2', 'Pacifico', cursive;
-  overflow: hidden;
+  background: radial-gradient(ellipse at center, #fff3fa 0%, #feb7d4 60%, #c7fafd 100%);
+  overflow-x: hidden;
 }
-
 #l-layout {
   position: relative;
   width: 100vw;
   min-height: 100vh;
   box-sizing: border-box;
   z-index: 3;
+  display: flex;
+  align-items: stretch;
 }
-
-/* -- Inverted L -- */
+#content-area {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  display: flex;
+  align-items: stretch;
+}
 #l-horizontal {
   display: flex;
   flex-direction: row;
-  gap: 0;
   position: absolute;
-  left: 50px; top: 34px;
+  left: 4vw;
+  top: 5vw;
   z-index: 10;
+  gap: 0;
 }
-.l-img {
-  width: 230px;
-  height: 318px;
+.l-img { /* Used for both horizontal and vertical images */
+  width: 26vw;
+  max-width: 230px;
+  height: 36vw;
+  max-height: 318px;
   object-fit: cover;
   border-radius: 24px;
-  border: 12px solid white;
-  background: #fff;
+  border: 10px solid white;
   box-shadow: 0 12px 38px #da6bbf69;
+  margin: 0;
 }
 #l-vertical {
   display: flex;
   flex-direction: column;
   gap: 0;
   position: absolute;
-  left: 50px; top: 34px;
+  left: 4vw;
+  top: 5vw;
   z-index: 10;
 }
 .l-img.vert {
+  width: 26vw;
+  max-width: 230px;
+  height: 36vw;
+  max-height: 318px;
   margin-bottom: 0;
-  width: 230px;
-  height: 318px;
   object-fit: cover;
 }
-@media(max-width:1100px){
-  #l-horizontal, #l-vertical { left: 5vw; }
-}
 @media(max-width:900px){
-  .l-img, .l-img.vert {width:29vw; min-width:100px; height:49vw; min-height:150px;}
-  #l-layout {padding-top:20px;}
-  #l-horizontal {left:1vw;}
-  #l-vertical {left:1vw;}
+  #l-horizontal, #l-vertical {left:2vw;}
+  .l-img, .l-img.vert {width:27vw; max-width:152px; height:45vw; max-height:155px;}
 }
-
-/* -- Center Happy Birthday + GIF -- */
+@media(max-width:600px){
+  #l-horizontal,#l-vertical{left:1vw;}
+  .l-img,.l-img.vert{width:36vw; max-width:120px; height:56vw; max-height:80px;}
+}
 #center-content {
-  /* inside the L between images */
+  /* Sit inside the L; margin-left = width of vert images + gap, margin-top = height of horizontal images + gap */
   position: absolute;
-  left: 290px; top: 50px; right: 60px; bottom: 38px;
+  left: calc(26vw + 6vw);
+  top: calc(36vw + 4vw);
+  right: 6vw;
+  bottom: 7vw;
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  z-index: 30;
+  z-index: 20;
+  width: calc(100vw - 32vw);
+  justify-content: flex-start;
+}
+@media(max-width:900px){
+  #center-content{left:calc(27vw + 3vw); top:calc(45vw + 2vw); right:3vw; width:calc(100vw - 30vw);}
+}
+@media(max-width:600px){
+  #center-content{left:calc(36vw + 2vw); top:calc(56vw + 3vw); right:1vw; width:calc(100vw - 40vw);}
 }
 .bday-text {
-  font-size: 5.3rem;
+  font-size: 6vw;
   color: #fff;
   font-family: 'Pacifico', 'Caveat', cursive;
   font-weight: bold;
-  text-shadow: 2px 3px 40px #ec1a77a0, 0 0 73px #fff;
-  letter-spacing: 2.2px;
+  text-shadow: 3px 4px 45px #ec1a77a0, 0 0 77px #fff;
+  letter-spacing: 2vw;
   margin: 0 0 24px 0;
   text-align: center;
-  line-height: 1.1;
+  line-height: 1.07;
   animation: scaleGlow 1.2s cubic-bezier(.81,2.0,.54,.91);
+  width: 95%;
 }
 @keyframes scaleGlow {
-  0% {transform:scale(0.85);}
-  70% {transform:scale(1.18);}
+  0% {transform:scale(0.7);}
+  70% {transform:scale(1.12);}
   100% {transform:scale(1);}
 }
 #surprise-gif {
-  width: 320px;
-  max-width: 96vw;
-  border-radius: 22px;
+  width: 225px;
+  max-width: 60vw;
+  border-radius: 19px;
   box-shadow: 0 7px 28px #ffe3f991;
+  margin-top: 24px;
   cursor: pointer;
   animation: popIn .9s cubic-bezier(.44,2.2,.38,1.1);
 }
 @keyframes popIn {
-  0%{transform:scale(.8); opacity:0;}
-  77%{transform:scale(1.12); opacity:1;}
+  0%{transform:scale(.82); opacity:0;}
+  77%{transform:scale(1.1); opacity:1;}
   100%{transform:scale(1);}
 }
 @media(max-width:900px){
-  #center-content .bday-text{font-size:2.2rem;}
-  #surprise-gif{width:55vw;}
+  #surprise-gif{width:32vw;max-width:140px;}
 }
 @media(max-width:600px){
-  #center-content .bday-text{font-size:1.2rem;}
-  #surprise-gif{width:82vw;}
+  #surprise-gif{width:56vw;max-width:110px;}
 }
 
-/* Hide transition page initially */
+/* --- Second Page --- */
 #transition-page {
-  display:none;
-  position:fixed; width:100vw; height:100vh; top:0; left:0; z-index:5000;
-  background: radial-gradient(ellipse at center, #fee5e8 22%, #9ef7be 100%);
+  display: none;
+  position: fixed;
+  width: 100vw; 
+  height: 100vh; 
+  top: 0; left: 0; z-index: 5000;
+  background: radial-gradient(circle at center, #222 40%, #6d29bd 100%);
   overflow:hidden;
+  transition: background .7s;
 }
 
-/* Centered, smaller GIF for transition */
+/* Centered, medium GIF for transition */
 #full-gif {
   position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -53%);
-  width: 370px; height: 370px;
+  left: 50%; 
+  top: 41vh;
+  transform: translate(-50%, 0);
+  width: 220px; height: 220px;
   display: flex;
   align-items: center; justify-content: center;
-  z-index: 6000;
-  background: none;
+  z-index: 3001;
   opacity: 0;
   animation: gifFadeIn .9s cubic-bezier(.68,1.8,.40,1.01) forwards;
 }
@@ -144,57 +167,65 @@ body {
   width: 100%;
   height: 100%;
   object-fit: contain;
-  border-radius: 16px;
+  border-radius: 7vw;
   box-shadow: 0 8px 40px #fec7f799;
 }
 
+/* Happy Birthday Centered, spaced from top/sides */
 #transition-msg {
-  position:absolute;left:50%;top:51%;
-  transform:translate(-50%,-50%);
-  font-size:5.2rem;
-  color:#fff;
+  position: absolute;
+  left: 50%;
+  top: 44vh;
+  transform: translate(-50%, 0);
+  font-size: 2.7rem;
+  color: #fff;
   font-family: 'Pacifico','Baloo 2',cursive; font-weight:bold;
-  text-shadow:8px 8px 120px #e889bb,0 0 60px #fff;
-  letter-spacing:3px;text-align:center;
-  opacity:0;
-  pointer-events:none;
-  z-index:6010;
-  animation:textPop 1.2s 1.6s cubic-bezier(.54,2.1,.6,.95) forwards;
+  text-shadow:8px 8px 50px #e775bb,0 0 60px #fff;
+  letter-spacing: .07em;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 3010;
+  animation: textPop 1.2s 2.9s cubic-bezier(.54,2.1,.6,.95) forwards;
+  width: 80vw;
+}
+@media(max-width:600px){
+  #full-gif{width:102px;height:102px;}
+  #transition-msg{font-size:1.1rem;}
 }
 @keyframes textPop {
-  from{opacity:0;transform:scale(.7);}
-  70%{opacity:1;transform:scale(1.17);}
-  to{opacity:1;transform:scale(1);}
+  from{opacity:0;transform:translateY(-30px) scale(.85);}
+  60%{opacity:1;transform:translateY(7px) scale(1.09);}
+  to{opacity:1;transform:translateY(0) scale(1);}
 }
 
 /* Sticky notes container & style */
 #transition-sticky-notes {
-  position:fixed; left:0; top:0; width:100vw; height:100vh; z-index:6011; pointer-events:none;
+  position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 3050; pointer-events: none;
 }
 .sticky-note {
-  width:180px; min-height:62px;
-  border-radius:18px;
-  box-shadow: 2px 7px 22px #8888a977;
-  padding:16px 15px 12px 18px;
-  font-size:1.08rem; font-family:'Caveat','Baloo 2',cursive;font-weight:bold;
-  color: #222;letter-spacing:1px;
-  display:flex; align-items:center; justify-content:center;
-  margin:0; border:2px solid #fff; 
-  opacity:0;
-  position:absolute;
-  overflow:visible;
-  white-space:break-spaces;
-  /* Rotation will be randomized in JS */
-  background:#ffe3e7;
+  width: 120px; min-height: 42px;
+  border-radius: 15px;
+  box-shadow: 2px 7px 22px #8888a966;
+  padding: 9px 10px 10px 12px;
+  font-size: .95rem; font-family: 'Caveat','Baloo 2',cursive; font-weight:bold;
+  color: #222; letter-spacing: .8px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0; border: 2px solid #fff; 
+  opacity: 0;
+  position: absolute;
+  overflow: visible;
+  white-space: break-spaces;
+  background: #ffe3e7;
   transition: opacity .48s, transform .38s;
 }
 .sticky-note .pin {
-  width:23px; height:23px;
-  background:url('https://cdn-icons-png.flaticon.com/128/346/346586.png') no-repeat center/cover;
-  position:absolute; left:50%; top:-12px; transform:translateX(-50%);
-  box-shadow:0 1px 6px #2227;
+  width: 15px; height: 15px;
+  background: url('https://cdn-icons-png.flaticon.com/128/346/346586.png') no-repeat center/cover;
+  position: absolute; left: 50%; top: -7px; transform: translateX(-50%);
+  box-shadow: 0 1px 6px #2227;
 }
-.sticky-note .emoji {font-size:1.5rem; margin-left:7px;}
+.sticky-note .emoji {font-size:.91rem; margin-left:4px;}
 .sticky-1 {background:#fffbab;}
 .sticky-2 {background:#f9bbff;}
 .sticky-3 {background:#bcfff1;}
@@ -205,42 +236,37 @@ body {
 .sticky-8 {background:#d1c1ff;}
 .sticky-9 {background:#DEFFCA;}
 .sticky-10{background:#ffc1c1;}
-@media (max-width:900px){
-  #transition-msg{font-size:2.1rem;}
-  .sticky-note {width:22vw; font-size:.82rem;}
-}
-@media (max-width:600px){
-  #full-gif {width:140px; height:140px;}
-  .sticky-note{width:34vw;min-width:70px;padding:7px 6px;}
-  #transition-msg{font-size:.95rem;}
-}
 </style>
 </head>
 <body>
 <div id="l-layout">
-  <!-- Horizontal bar (top) -->
-  <div id="l-horizontal">
-    <img src="IMG_8736.jpeg" class="l-img" style="box-shadow:0 12px 38px #ffd5b069;">
-    <img src="IMG_7789.jpeg" class="l-img">
-    <img src="IMG_7744.jpeg" class="l-img">
-  </div>
-  <!-- Vertical bar (left, shares IMG_8736.jpeg as corner/top) -->
-  <div id="l-vertical">
-    <img src="IMG_8736.jpeg" class="l-img vert" style="box-shadow:0 12px 38px #ffd5b069;">
-    <img src="IMG_7708.jpeg" class="l-img vert">
-    <img src="IMG_7687.jpeg" class="l-img vert">
-    <img src="IMG_7753.jpeg" class="l-img vert">
-    <img src="IMG_4082.jpeg" class="l-img vert">
-  </div>
-  <div id="center-content">
-    <div class="bday-text">Happy Birthday 🎂</div>
-    <img src="IMG_8963.gif" id="surprise-gif" alt="Surprise Here GIF">
+  <div id="content-area">
+    <!-- Horizontal bar (top) -->
+    <div id="l-horizontal">
+      <img src="IMG_8736.jpeg" class="l-img">
+      <img src="IMG_7789.jpeg" class="l-img">
+      <img src="IMG_7744.jpeg" class="l-img">
+    </div>
+    <!-- Vertical bar (left, shares IMG_8736.jpeg as corner/top) -->
+    <div id="l-vertical">
+      <img src="IMG_8736.jpeg" class="l-img vert">
+      <img src="IMG_7708.jpeg" class="l-img vert">
+      <img src="IMG_7687.jpeg" class="l-img vert">
+      <img src="IMG_7753.jpeg" class="l-img vert">
+      <img src="IMG_4082.jpeg" class="l-img vert">
+    </div>
+    <div id="center-content">
+      <div class="bday-text">Happy Birthday 🎂</div>
+      <img src="IMG_8963.gif" id="surprise-gif" alt="Surprise Here GIF">
+    </div>
   </div>
 </div>
 
 <!-- Transition Page -->
 <div id="transition-page">
-  <div id="full-gif"><img src="IMG_8966.gif" alt="Gift animation"></div>
+  <div id="full-gif">
+    <img src="IMG_8966.gif" alt="Gift animation" />
+  </div>
   <div id="transition-msg">Happy Birthday Anuja❤️🫶</div>
   <div id="transition-sticky-notes"></div>
   <audio id="birthday-audio" src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
@@ -264,39 +290,7 @@ const stickyColors = [
   'sticky-6','sticky-7','sticky-8','sticky-9','sticky-10'
 ];
 
-// Confetti
-const confettiCanvas = document.createElement('canvas');
-confettiCanvas.id = "confetti-canvas";
-confettiCanvas.width = window.innerWidth;
-confettiCanvas.height = window.innerHeight;
-document.body.appendChild(confettiCanvas);
-const ctx = confettiCanvas.getContext('2d');
-let confettiPieces = [];
-for (let i = 0; i < 120; i++) {
-  confettiPieces.push({
-    x: Math.random() * confettiCanvas.width,
-    y: Math.random() * confettiCanvas.height,
-    r: Math.random() * 8 + 4,
-    color: `hsl(${Math.random()*360},82%,75%)`,
-    speed: Math.random() * 2 + 1
-  });
-}
-function confettiAnim() {
-  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
-  confettiPieces.forEach(p => {
-    p.y += p.speed;
-    if (p.y > confettiCanvas.height) {
-      p.y = 0; p.x = Math.random() * confettiCanvas.width;
-    }
-    ctx.beginPath();
-    ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
-    ctx.fillStyle = p.color; ctx.fill();
-  });
-  requestAnimationFrame(confettiAnim);
-}
-confettiAnim();
-
-// PAGE FLOW
+// PAGE 1 → PAGE 2
 const surpriseGif = document.getElementById('surprise-gif');
 const transitionPage = document.getElementById('transition-page');
 const fullGifDiv = document.getElementById('full-gif');
@@ -316,20 +310,18 @@ surpriseGif.onclick = () => {
     fullGifDiv.style.opacity = 0;
     transMsg.style.opacity = 1;
     stickyNoteContainer.style.pointerEvents = 'auto';
-  }, 1700);
+  }, 3000);
 };
 
 let stickyIndex = 0;
 transitionPage.addEventListener("click", function(e) {
-  // Only allow note creation after message is visible, and not on GIF itself.
   if (transMsg.style.opacity !== "1") return;
-  if(e.target === fullGifDiv || e.target === fullGifDiv.firstChild) return;
-  // Center note to tap, avoid message area
+  if (e.target === fullGifDiv || e.target === fullGifDiv.firstChild) return;
+  // Avoid overlap with central message
   const x = e.clientX;
   const y = e.clientY;
-  // Check if near center, avoid overlapping message
   const vw = window.innerWidth, vh = window.innerHeight;
-  const msgRect = {x: vw/2-200, y: vh/2-60, w:400, h:120};
+  const msgRect = {x: vw/2-70, y: vh*0.44-45, w:140, h:90};
   if(x>msgRect.x && x<msgRect.x+msgRect.w && y>msgRect.y && y<msgRect.y+msgRect.h)
     return;
   if(stickyIndex >= stickyContents.length) stickyIndex = 0;
@@ -337,22 +329,21 @@ transitionPage.addEventListener("click", function(e) {
   el.className = "sticky-note " + stickyColors[stickyIndex%stickyColors.length];
   el.innerHTML = `<div class="pin"></div>${stickyContents[stickyIndex]}`;
   stickyIndex++;
-  el.style.left = `${x-90}px`; // center note on tap
-  el.style.top = `${y-44}px`;
+  el.style.left = `${x-60}px`;
+  el.style.top = `${y-28}px`;
   el.style.opacity = "0";
-  // Random rotate: -12deg to 10deg
-  const deg = Math.floor(Math.random()*22-12);
-  el.style.transform = `rotate(${deg}deg) scale(0.82)`;
-  // No overlap: check
+  const deg = Math.floor(Math.random()*20-10);
+  el.style.transform = `rotate(${deg}deg) scale(0.81)`;
+  // No overlap
   let overlap = false, notes = stickyNoteContainer.children;
   for(let i=0;i<notes.length;i++) {
     const prev = notes[i].getBoundingClientRect();
-    const cur = {left:x-90, right:x+90, top:y-44, bottom:y+64};
+    const cur = {left:x-60, right:x+60, top:y-28, bottom:y+62};
     if(!(prev.right<cur.left||prev.left>cur.right||prev.bottom<cur.top||prev.top>cur.bottom)) {
-      overlap=true; break;
+      overlap = true; break;
     }
   }
-  if(!overlap){
+  if (!overlap){
     stickyNoteContainer.appendChild(el);
     setTimeout(() => {
       el.style.opacity = "1";
