@@ -71,10 +71,12 @@ body {
   #l-horizontal{gap:6px;}
   #l-vertical{gap:6px;}
 }
+
+/* ---- Move center content slightly downwards ---- */
 #center-content {
   position: absolute;
   left: calc(160px + 32px + 5vw);
-  top: calc(212px + 28px + 5vw);
+  top: calc(212px + 90px + 5vw);   /* << moved down by 62px */
   right: 8vw;
   bottom: 10vw;
   display: flex;
@@ -85,7 +87,7 @@ body {
   justify-content: flex-start;
 }
 @media(max-width:700px){
-  #center-content{left:calc(102px + 8px + 2vw);top:calc(142px + 9px + 2vw);}
+  #center-content{left:calc(102px + 8px + 2vw);top:calc(142px + 45px + 2vw);}
 }
 .bday-text {
   font-size: 2.5rem;
@@ -94,23 +96,24 @@ body {
   font-weight: bold;
   text-shadow: 2px 3px 40px #ec1a77a0, 0 0 73px #fff;
   letter-spacing: .09em;
-  margin: 0 0 20px 0;
+  margin: 70px 0 25px 0; /* << moved text down with margin-top */
   text-align: center;
   line-height: 1.07;
   width: 90%;
 }
-@media(min-width:600px){.bday-text{font-size:3.1rem;}}
+@media(min-width:600px){
+  .bday-text{font-size:3.1rem;margin-top:80px;}
+}
 #surprise-gif {
   width: 220px;
   max-width: 50vw;
   border-radius: 17px;
   box-shadow: 0 7px 14px #ffe3f991;
-  margin-top: 18px;
+  margin-top: 20px; /* << keep distance in sync with bday-text */
   margin-bottom: 12px;
   cursor: pointer;
 }
 @media(max-width:700px){#surprise-gif{width:130px;max-width:34vw;}}
-
 /* ---------- Second Page ---------- */
 #transition-page {
   display: none;
@@ -119,7 +122,6 @@ body {
   background: radial-gradient(circle at center, #181929 47%, #763a96 100%);
   overflow: hidden;
 }
-/* Centered, very large GIF for transition */
 #full-gif {
   position: absolute;
   left: 50%; top: 50%;
@@ -134,7 +136,7 @@ body {
 @media(max-width:700px){
   #full-gif{width:180px;height:180px;}
 }
-/* Message: medium size, centered - never disappears */
+/* Message: medium size, stays perfectly centered */
 #transition-msg {
   position: absolute;
   left: 50%;
@@ -153,8 +155,52 @@ body {
   z-index: 3010;
 }
 @media(min-width:700px){
-  #transition-msg{font-size:2.5rem;width:50vw;}
+  #transition-msg{font-size:2.6rem;width:50vw;}
 }
+
+/* Sticky Notes */
+#transition-sticky-notes {
+  position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 3050; pointer-events: none;
+}
+.sticky-note {
+  width: 120px; min-height: 42px;
+  border-radius: 13px;
+  box-shadow: 2px 7px 22px #8888a966;
+  padding: 9px 8px 7px 10px;
+  font-size: .89rem;
+  font-family: 'Caveat','Baloo 2',cursive;
+  font-weight: bold;
+  color: #222; letter-spacing: .8px;
+  display: flex; align-items: center; justify-content: center;
+  margin: 0; border: 2px solid #fff; 
+  opacity: 0;
+  position: absolute;
+  overflow: visible;
+  white-space: break-spaces;
+  transition: opacity .48s, transform .38s;
+  background: #fffbe3;
+  animation: stickynotePop .6s cubic-bezier(.32,2,.21,.99);
+}
+@keyframes stickynotePop{
+  from{opacity:0; transform: scale(.73) rotate(-7deg);}
+  85%{opacity:1; transform: scale(1.13);}
+  to{opacity:1; transform: scale(1);}
+}
+.sticky-note .pin {
+  font-size:1.3rem;
+  position: absolute; left: 50%; top: -7px; transform: translateX(-50%);
+}
+.sticky-note .emoji {font-size:.91rem; margin-left:4px;}
+.sticky-1 {background:#fffbab;}
+.sticky-2 {background:#f9bbff;}
+.sticky-3 {background:#bcfff1;}
+.sticky-4 {background:#feb7d4;}
+.sticky-5 {background:#ffdeeb;}
+.sticky-6 {background:#baffee;}
+.sticky-7 {background:#ffe9c1;}
+.sticky-8 {background:#d1c1ff;}
+.sticky-9 {background:#DEFFCA;}
+.sticky-10{background:#ffc1c1;}
 </style>
 </head>
 <body>
@@ -207,30 +253,88 @@ body {
   <div id="full-gif">
     <img src="IMG_8966.gif" alt="Gift animation" style="width:100%;height:100%;object-fit:contain;border-radius:32px;box-shadow:0 8px 44px #fec7f799;">
   </div>
-  <div id="transition-msg">Happy Birthday Anuja❤️🫶</div>
+  <div id="transition-msg">Happy Birthday Anuja❤️✨🫶</div>
+  <div id="transition-sticky-notes"></div>
   <audio id="birthday-audio" src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
 </div>
 <script>
-// LAYOUT CONTROL
+const stickyContents = [
+  `"You make my world shine brighter every day." <span class="emoji">✨</span>`,
+  `"May your heart be filled with laughter and love always!" <span class="emoji">😍</span>`,
+  `"You are the reason for so many smiles. Happy Birthday!" <span class="emoji">😻</span>`,
+  `"To more memories, more adventures, and all the love you deserve." <span class="emoji">🫶</span>`,
+  `"Wishing you happiness, hugs, and sweetness forever." <span class="emoji">😘</span>`,
+  `"Life is more beautiful with you in it. Happy birthday!!" <span class="emoji">❤️</span>`,
+  `"You deserve all the smiles and hugs!" <span class="emoji">😍</span>`,
+  `"Sending love and sparkles your way!" <span class="emoji">✨</span>`,
+  `"Your kindness makes the world a better place." <span class="emoji">😻</span>`,
+  `"Keep shining, birthday girl!" <span class="emoji">🫶</span>`
+];
+const stickyColors = [
+  'sticky-1', 'sticky-2', 'sticky-3','sticky-4','sticky-5',
+  'sticky-6','sticky-7','sticky-8','sticky-9','sticky-10'
+];
+
+// PAGE 1 → PAGE 2
 const transitionPage = document.getElementById('transition-page');
 const fullGifDiv = document.getElementById('full-gif');
 const transMsg = document.getElementById('transition-msg');
 const surpriseGif = document.getElementById('surprise-gif');
+const stickyNoteContainer = document.getElementById('transition-sticky-notes');
 const birthdayAudio = document.getElementById('birthday-audio');
 
-// Trigger transition page and music
 surpriseGif.onclick = function() {
   document.getElementById('container-main').style.display = 'none';
   transitionPage.style.display = 'block';
   fullGifDiv.style.opacity = 1;
   transMsg.style.opacity = 0;
+  stickyNoteContainer.innerHTML = '';
   birthdayAudio.currentTime = 0;
   birthdayAudio.play();
   setTimeout(function() {
     fullGifDiv.style.opacity = 0;
     transMsg.style.opacity = 1;
+    stickyNoteContainer.style.pointerEvents = 'auto';
   }, 3000);
-}
+};
+
+// sticky notes creation on tap, as before, with 📌 on top
+let stickyIndex = 0;
+transitionPage.addEventListener("click", function(e) {
+  if (transMsg.style.opacity !== "1") return;
+  if (e.target === fullGifDiv || e.target === fullGifDiv.firstChild) return;
+  const x = e.clientX;
+  const y = e.clientY;
+  const vw = window.innerWidth, vh = window.innerHeight;
+  const msgRect = {x: vw/2-60, y: vh/2-28, w:120, h:56};
+  if(x>msgRect.x && x<msgRect.x+msgRect.w && y>msgRect.y && y<msgRect.y+msgRect.h)
+    return;
+  if(stickyIndex >= stickyContents.length) stickyIndex = 0;
+  const el = document.createElement('div');
+  el.className = "sticky-note " + stickyColors[stickyIndex%stickyColors.length];
+  el.innerHTML = `<div class="pin">📌</div>${stickyContents[stickyIndex]}`;
+  stickyIndex++;
+  el.style.left = `${x-60}px`;
+  el.style.top = `${y-22}px`;
+  el.style.opacity = "0";
+  const deg = Math.floor(Math.random()*18-9);
+  el.style.transform = `rotate(${deg}deg) scale(0.81)`;
+  let overlap = false, notes = stickyNoteContainer.children;
+  for(let i=0;i<notes.length;i++) {
+    const prev = notes[i].getBoundingClientRect();
+    const cur = {left:x-60, right:x+60, top:y-22, bottom:y+50};
+    if(!(prev.right<cur.left||prev.left>cur.right||prev.bottom<cur.top||prev.top>cur.bottom)) {
+      overlap = true; break;
+    }
+  }
+  if (!overlap){
+    stickyNoteContainer.appendChild(el);
+    setTimeout(() => {
+      el.style.opacity = "1";
+      el.style.transform = `rotate(${deg}deg) scale(1)`;
+    }, 50);
+  }
+});
 </script>
 </body>
 </html>
