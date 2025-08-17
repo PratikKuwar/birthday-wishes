@@ -2,173 +2,320 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<title>Birthday Surprise!</title>
+<title>Happy Birthday Anuja!</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-@import url('https://fonts.googleapis.com/css?family=Pacifico|Baloo+2|Caveat|Montserrat:900&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Pacifico|Baloo+2|Caveat:700&display=swap');
 body {
   margin: 0;
-  background: radial-gradient(ellipse at center, #ffe4ec 0%, #fed6e3 70%, #ff96ad 100%);
   min-height: 100vh;
-  font-family: 'Baloo 2', 'Pacifico', 'Comic Sans MS', cursive;
-  overflow-x: hidden;
+  background: radial-gradient(ellipse at center, #fff3fa 0%, #feb7d4 70%, #c7fafd 100%);
+  font-family: 'Baloo 2', 'Pacifico', cursive;
+  overflow: hidden;
 }
-
-/* ---- Inverted L ---- */
-#photo-layout {
+#l-layout {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  box-sizing: border-box;
+  z-index: 3;
+}
+#l-horizontal {
   display: flex;
   flex-direction: row;
-  width: 100%;
-  height: 100vh;
-  position: relative;
+  gap: 0;
+  position: absolute;
+  left: 50px; top: 34px;
+  z-index: 10;
 }
-#vertical-col {
+.l-img {
+  width: 230px;
+  height: 318px;
+  object-fit: cover;
+  border-radius: 24px;
+  border: 12px solid white;
+  background: #fff;
+  box-shadow: 0 12px 38px #da6bbf69;
+}
+#l-vertical {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  align-items: flex-start;
+  gap: 0;
+  position: absolute;
+  left: 50px; top: 34px;
+  z-index: 10;
 }
-#horizontal-row {
+.l-img.vert {
+  margin-bottom: 0;
+  width: 230px;
+  height: 318px;
+  object-fit: cover;
+}
+@media(max-width:1100px){
+  #l-horizontal, #l-vertical {
+    left: 12vw;
+  }
+}
+@media(max-width:900px){
+  .l-img, .l-img.vert {width:31vw; min-width:140px; height:49vw; min-height:180px;}
+  #l-layout {padding-top:20px;}
+  #l-horizontal {left:3vw;}
+  #l-vertical {left:3vw;}
+}
+@media(max-width:600px){
+  .l-img, .l-img.vert {width:38vw; min-width:80px; height:52vw; min-height:90px;}
+  #center-content .bday-text {font-size:2.2rem;}
+}
+#center-content {
+  position: absolute;
+  left: 280px; top: 52px; right: 50px; bottom: 38px;
   display: flex;
-  flex-direction: row;
-  gap: 10px;
-  align-items: flex-start;
-  margin-left: 10px;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  z-index: 30;
 }
-.photo {
-  width: 200px;
-  height: 260px;
-  object-fit: cover;
-  border-radius: 15px;
-  border: 8px solid #fff;
-  box-shadow: 0 8px 24px rgba(0,0,0,0.2);
-}
-.corner-photo { 
-  width: 240px; height: 300px; 
-}
-/* Fill gap nicely */
-.photo.large { width: 230px; height: 280px; }
-
-/* Inside L center text */
-#center-text {
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  text-align: center;
-}
-#center-text h1 {
-  font-size: 4rem;
+.bday-text {
+  font-size: 5.3rem;
   color: #fff;
-  text-shadow: 0 0 18px #ff4f88, 0 0 30px #fff;
+  font-family: 'Pacifico', 'Caveat', cursive;
+  font-weight: bold;
+  text-shadow: 2px 3px 32px #ec1a77a0, 0 0 52px #fff;
+  letter-spacing: 2px;
+  margin: 0 0 24px 0;
+  text-align: center;
+  line-height: 1.1;
+  animation: scaleGlow 1.2s cubic-bezier(.81,2.0,.54,.91);
 }
-#center-text img {
-  margin-top: 20px;
-  width: 200px;
-  border-radius: 20px;
-  box-shadow: 0 0 20px #ffb7c9;
+@keyframes scaleGlow {
+  0% {transform:scale(0.85);}
+  70% {transform:scale(1.18);}
+  100% {transform:scale(1);}
+}
+#surprise-gif {
+  width: 355px;
+  max-width: 98vw;
+  border-radius: 22px;
+  box-shadow: 0 7px 28px #ffe3f991;
+  cursor: pointer;
+  animation: popIn .9s cubic-bezier(.44,2.2,.38,1.1);
+}
+@keyframes popIn {
+  0%{transform:scale(.8); opacity:0;}
+  77%{transform:scale(1.1); opacity:1;}
+  100%{transform:scale(1);}
 }
 
-/* Transition Page */
+/* Hide transition page initially */
 #transition-page {
-  display: none;
-  position: fixed; inset: 0;
-  z-index: 9999;
-  background: #000;
+  display:none;
+  position:fixed; width:100vw; height:100vh; top:0; left:0; z-index:5000;
+  background:radial-gradient(ellipse at center, #fee5e8 20%, #9ef7be 100%);
+  overflow:hidden;
 }
-#fullscreen-gif {
-  position: absolute;
-  inset: 0;
-  width: 100%; height: 100%;
-  object-fit: cover;
+#full-gif {
+  position:absolute; left:0; top:0; width:100vw; height:100vh;
+  background:rgba(255,255,255,.79);
+  display:flex; align-items:center; justify-content:center;
+  z-index:6000;
+  animation:gifFade .9s cubic-bezier(.76,2.1,.42,.93);
 }
-#birthday-message {
-  display: none;
-  position: absolute;
-  left: 50%; top: 50%;
-  transform: translate(-50%, -50%);
-  font-size: 3.5rem;
-  font-family: 'Pacifico', cursive;
-  color: #fff;
-  text-shadow: 0 0 25px #ff5b9a, 0 0 50px #fff;
-  text-align: center;
+@keyframes gifFade {
+  0% {opacity:.3;}
+  100% {opacity:1;}
 }
-
-/* Sticky Notes */
-.sticky {
-  position: absolute;
-  min-width: 160px; 
-  min-height: 100px;
-  background: #ffed9c;
-  border-radius: 12px;
-  padding: 15px;
-  font-size: 1.2rem;
-  font-family: 'Caveat', cursive;
-  box-shadow: 2px 6px 18px rgba(0,0,0,0.25);
-  opacity: 0; transform: scale(0.6);
-  transition: transform .4s ease, opacity .4s ease;
+#full-gif img {
+  max-width:100vw; max-height:100vh;
+  width:auto; height:auto;
+  border-radius:0;
+  box-shadow:none;
 }
-.sticky.show { opacity: 1; transform: scale(1) rotate(var(--rot)); }
-.sticky .pin {
-  width: 22px; height: 22px;
-  background: url('https://cdn-icons-png.flaticon.com/128/346/346586.png') no-repeat center/cover;
-  position: absolute; top: -14px; left: 50%; transform: translateX(-50%);
+#transition-msg {
+  position:absolute;left:50%;top:51%;
+  transform:translate(-50%,-50%);
+  font-size:5.2rem;
+  color:#fff;
+  font-family: 'Pacifico','Baloo 2',cursive; font-weight:bold;
+  text-shadow:8px 8px 120px #e889bb,0 0 60px #fff;
+  letter-spacing:3px;text-align:center;
+  opacity:0;
+  pointer-events:none;
+  animation:textPop 1.3s 1.2s cubic-bezier(.54,2.1,.6,.95) forwards;
+  z-index:6010;
 }
+@keyframes textPop {
+  from{opacity:0;transform:scale(.7);}
+  70%{opacity:1;transform:scale(1.17);}
+  to{opacity:1;transform:scale(1);}
+}
+/* sticky notes container */
+#transition-sticky-notes {
+  position:fixed; left:0; top:0; width:100vw; height:100vh; z-index:6011; pointer-events:none;
+}
+.sticky-note {
+  width:180px; min-height:62px;
+  border-radius:18px;
+  box-shadow: 2px 7px 22px #8888a977;
+  padding:16px 15px 12px 18px;
+  font-size:1.08rem; font-family:'Caveat','Baloo 2',cursive;font-weight:bold;
+  color: #222; letter-spacing:1px;
+  display:flex; align-items:center; justify-content:center;
+  margin:0; border:2px solid #fff; 
+  opacity:0; pointer-events:auto;
+  position:absolute;
+  overflow:visible;
+  white-space:break-spaces;
+  /* Rotation will be randomized in JS */
+  background:#ffe3e7;
+  transition: opacity .48s, transform .38s;
+}
+.sticky-note .pin {
+  width:23px; height:23px;
+  background:url('https://cdn-icons-png.flaticon.com/128/346/346586.png') no-repeat center/cover;
+  position:absolute; left:50%; top:-12px; transform:translateX(-50%);
+  box-shadow:0 1px 6px #2227;
+}
+.sticky-note .emoji {
+  font-size:1.5rem; margin-left:7px;
+}
+.sticky-1 {background:#fffbab;}
+.sticky-2 {background:#f9bbff;}
+.sticky-3 {background:#bcfff1;}
+.sticky-4 {background:#feb7d4;}
+.sticky-5 {background:#ffdeeb;}
+.sticky-6 {background:#baffee;}
+.sticky-7 {background:#ffe9c1;}
+.sticky-8 {background:#d1c1ff;}
+.sticky-9 {background:#DEFFCA;}
+.sticky-10{background:#ffc1c1;}
 </style>
 </head>
 <body>
-
-<!-- Inverted L Layout -->
-<div id="photo-layout">
-  <div id="vertical-col">
-    <img src="IMG_8736.jpeg" class="photo corner-photo"> <!-- shared -->
-    <img src="IMG_7708.jpeg" class="photo large">
-    <img src="IMG_7687.jpeg" class="photo large">
-    <img src="IMG_7753.jpeg" class="photo large">
+<div id="l-layout">
+  <!-- Horizontal bar -->
+  <div id="l-horizontal">
+    <img src="IMG_8736.jpeg" class="l-img" style="box-shadow:0 12px 38px #ffd5b069;">
+    <img src="IMG_7789.jpeg" class="l-img">
+    <img src="IMG_7744.jpeg" class="l-img">
   </div>
-  <div id="horizontal-row">
-    <img src="IMG_8736.jpeg" class="photo corner-photo" style="visibility:hidden"> <!-- placeholder for alignment -->
-    <img src="IMG_7789.jpeg" class="photo large">
-    <img src="IMG_7744.jpeg" class="photo large">
+  <!-- Vertical bar (uses IMG_8736.jpeg as corner/top) -->
+  <div id="l-vertical">
+    <img src="IMG_8736.jpeg" class="l-img vert" style="box-shadow:0 12px 38px #ffd5b069;">
+    <img src="IMG_7708.jpeg" class="l-img vert">
+    <img src="IMG_7687.jpeg" class="l-img vert">
+    <img src="IMG_7753.jpeg" class="l-img vert">
+    <img src="IMG_4082.jpeg" class="l-img vert">
   </div>
-  <div id="center-text">
-    <h1>Happy Birthday</h1>
-    <img src="IMG_8963.gif" id="open-btn">
+  <div id="center-content">
+    <div class="bday-text">Happy Birthday 🎂</div>
+    <img src="IMG_8963.gif" id="surprise-gif" alt="Surprise Here GIF">
   </div>
 </div>
 
-<!-- Transition Page -->
+<!-- Transition: page 2 -->
 <div id="transition-page">
-  <img src="IMG_8966.gif" id="fullscreen-gif">
-  <div id="birthday-message">Happy Birthday Anuja❤️🫶</div>
+  <div id="full-gif"><img src="IMG_8966.gif" style="width:100vw;height:100vh;object-fit:cover;"></div>
+  <div id="transition-msg">Happy Birthday Anuja❤️🫶</div>
+  <div id="transition-sticky-notes"></div>
 </div>
 
 <script>
-const btn = document.getElementById("open-btn");
-btn.onclick = () => {
-  document.getElementById("photo-layout").style.display = "none";
-  const tp = document.getElementById("transition-page");
-  tp.style.display = "block";
+const stickyContents = [
+  `"You make my world shine brighter every day." <span class="emoji">✨</span>`,
+  `"May your heart be filled with laughter and love always!" <span class="emoji">😍</span>`,
+  `"You are the reason for so many smiles. Happy Birthday!" <span class="emoji">😻</span>`,
+  `"To more memories, more adventures, and all the love you deserve." <span class="emoji">🫶</span>`,
+  `"Wishing you happiness, hugs, and sweetness forever." <span class="emoji">😘</span>`,
+  `"Life is more beautiful with you in it. Happy birthday!!" <span class="emoji">❤️</span>`,
+  `"You deserve all the smiles and hugs!" <span class="emoji">😍</span>`,
+  `"Sending love and sparkles your way!" <span class="emoji">✨</span>`,
+  `"Your kindness makes the world a better place." <span class="emoji">😻</span>`,
+  `"Keep shining, birthday girl!" <span class="emoji">🫶</span>`
+];
 
-  // First GIF then message
+const stickyColors = [
+  'sticky-1', 'sticky-2', 'sticky-3','sticky-4','sticky-5',
+  'sticky-6','sticky-7','sticky-8','sticky-9','sticky-10'
+];
+
+// Confetti
+const confettiCanvas = document.createElement('canvas');
+confettiCanvas.id = "confetti-canvas";
+confettiCanvas.width = window.innerWidth;
+confettiCanvas.height = window.innerHeight;
+document.body.appendChild(confettiCanvas);
+const ctx = confettiCanvas.getContext('2d');
+let confettiPieces = [];
+for (let i = 0; i < 120; i++) {
+  confettiPieces.push({
+    x: Math.random() * confettiCanvas.width,
+    y: Math.random() * confettiCanvas.height,
+    r: Math.random() * 8 + 4,
+    color: `hsl(${Math.random()*360},82%,75%)`,
+    speed: Math.random() * 2 + 1
+  });
+}
+function confettiAnim() {
+  ctx.clearRect(0, 0, confettiCanvas.width, confettiCanvas.height);
+  confettiPieces.forEach(p => {
+    p.y += p.speed;
+    if (p.y > confettiCanvas.height) {
+      p.y = 0; p.x = Math.random() * confettiCanvas.width;
+    }
+    ctx.beginPath();
+    ctx.arc(p.x, p.y, p.r, 0, 2 * Math.PI);
+    ctx.fillStyle = p.color; ctx.fill();
+  });
+  requestAnimationFrame(confettiAnim);
+}
+confettiAnim();
+
+// PAGE FLOW
+const surpriseGif = document.getElementById('surprise-gif');
+const transitionPage = document.getElementById('transition-page');
+const fullGifDiv = document.getElementById('full-gif');
+const transMsg = document.getElementById('transition-msg');
+const stickyNoteContainer = document.getElementById('transition-sticky-notes');
+
+// On click, show transition page, then msg - sticky notes appear on tap
+surpriseGif.onclick = () => {
+  document.getElementById('l-layout').style.display = 'none';
+  transitionPage.style.display = 'block';
+  fullGifDiv.style.opacity = 1;
+  transMsg.style.opacity = 0;
+  stickyNoteContainer.innerHTML = '';
+  // Animate GIF, then main message appears after ~1.6s
   setTimeout(() => {
-    document.getElementById("fullscreen-gif").style.display="none";
-    const msg = document.getElementById("birthday-message");
-    msg.style.display="block";
-  }, 3000);
+    fullGifDiv.style.opacity = 0;
+    transMsg.style.opacity = 1;
+    // Allow sticky notes on click
+    stickyNoteContainer.style.pointerEvents = 'auto';
+  }, 1700);
 };
 
-// Sticky note on tap
-const tp = document.getElementById("transition-page");
-tp.addEventListener("click", (e)=>{
-  if(document.getElementById("birthday-message").style.display==="block"){
-    const sticky = document.createElement("div");
-    sticky.className="sticky";
-    sticky.style.left = (e.pageX-80)+"px";
-    sticky.style.top = (e.pageY-50)+"px";
-    sticky.style.setProperty("--rot", (Math.random()*20-10)+"deg");
-    sticky.innerHTML=`<div class="pin"></div>💌 A little love note just for you!`;
-    tp.appendChild(sticky);
-    setTimeout(()=>sticky.classList.add("show"),50);
-  }
+// On every tap (after transition message visible), create a sticky note at clicked spot
+let stickyIndex = 0;
+transitionPage.addEventListener("click", function(e) {
+  // Only allow creating sticky notes after .transition-msg visible
+  if (transMsg.style.opacity !== "1") return;
+  const x = e.clientX;
+  const y = e.clientY;
+  if(stickyIndex >= stickyContents.length) stickyIndex = 0;
+  const el = document.createElement('div');
+  el.className = "sticky-note " + stickyColors[stickyIndex%stickyColors.length];
+  el.innerHTML = `<div class="pin"></div>${stickyContents[stickyIndex]}`;
+  stickyIndex++;
+  el.style.left = `${x-90}px`; // center note on tap
+  el.style.top = `${y-44}px`;
+  el.style.opacity = "0";
+  // Random rotation for realism
+  const deg = Math.floor(Math.random()*22-11);
+  el.style.transform = `rotate(${deg}deg) scale(0.82)`;
+  stickyNoteContainer.appendChild(el);
+  setTimeout(() => {
+    el.style.opacity = "1";
+    el.style.transform = `rotate(${deg}deg) scale(1)`;
+  }, 50);
 });
 </script>
 </body>
