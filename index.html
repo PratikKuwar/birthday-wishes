@@ -6,6 +6,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
 @import url('https://fonts.googleapis.com/css?family=Lobster:700|Montserrat:900|Pacifico:700|Baloo+2:700|Caveat:700&display=swap');
+
 body {
   margin: 0;
   min-height: 100vh;
@@ -13,10 +14,13 @@ body {
   background: radial-gradient(ellipse at center, #fff3fa 1%, #feb7d4 48%, #c7fafd 100%);
   overflow-x: hidden;
 }
+
 #container-main {
   position: relative;
   min-height: 100vh;
 }
+
+/* Polaroid rails (unchanged) */
 #l-horizontal {
   display: flex;
   gap: 18px;
@@ -71,6 +75,7 @@ body {
   #l-horizontal{gap:6px;}
   #l-vertical{gap:6px;}
 }
+
 /* ---- Downward, Centered Content ---- */
 #center-content {
   position: absolute;
@@ -88,31 +93,53 @@ body {
 @media(max-width:700px){
   #center-content{left:calc(102px + 8px + 2vw);top:calc(142px + 65px + 2vw);}
 }
-/* --- Stylish, Bold, Celebratory Birthday Text --- */
-  .bday-text {
-  font-size: 3rem; /* Bigger for more impact */
-  font-family: 'Pacifico', 'Caveat', cursive;
-  font-weight: 900; /* Strong bold */
-  background: linear-gradient(90deg, #ff0080, #ff8c00, #40e0d0);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent; /* Gradient text effect */
-  text-shadow: 2px 2px 12px rgba(255, 0, 128, 0.6),
-               0 0 32px rgba(255, 200, 0, 0.7),
-               0 0 52px rgba(64, 224, 208, 0.6);
-  letter-spacing: 0.1em;
-  margin: 80px 0 25px 0;
+
+/* --- Updated Birthday Heading (white, bold, bigger) --- */
+.bday-text {
+  font-size: 4rem;                 /* bigger */
+  font-family: 'Lobster','Pacifico','Montserrat', cursive;
+  font-weight: 900;                 /* bold */
+  color: #ffffff;                   /* white text */
+  letter-spacing: 0.08em;
+  margin: 128px 0 42px 0;
   text-align: center;
-  line-height: 1.1;
-  width: 90%;
+  line-height: 1.12;
+  width: 96%;
+  border-radius: 20px;
+  /* soft glow to lift white off the bg */
+  text-shadow: 0 2px 10px rgba(236,26,119,0.35),
+               0 0 22px rgba(255,255,255,0.95),
+               0 0 34px rgba(255,160,176,0.65);
+  animation: mainTextGlow 1.1s cubic-bezier(0.52,1.55,0.54,0.91);
 }
 @keyframes mainTextGlow {
-  0% { filter: brightness(0.9) contrast(1); text-shadow: 0 0 0 #fff; }
-  68% { filter: brightness(1.27) contrast(1.22); text-shadow: 3px 3px 50px #f904b7, 0 0 32px #fff;}
-  100% { filter: brightness(1.2) contrast(1.21);}
+  0% { opacity: 0; transform: translateY(-6px) scale(0.98); filter: brightness(0.95); }
+  65% { opacity: 1; transform: translateY(0) scale(1.02); filter: brightness(1.1); }
+  100% { opacity: 1; transform: translateY(0) scale(1); filter: brightness(1); }
 }
 @media(max-width:700px){
-  .bday-text{font-size:2rem;margin-top:64px;}
+  .bday-text{font-size:2.6rem;margin-top:64px;}
 }
+
+/* 🎂 Tiny shimmer animation only for the cake emoji */
+.cake-emoji {
+  display: inline-block;
+  filter: drop-shadow(0 0 4px rgba(255,255,255,0.9));
+  animation: cakeShimmer 1.6s ease-in-out infinite alternate;
+}
+@keyframes cakeShimmer {
+  0% {
+    transform: translateY(0) scale(1);
+    text-shadow: 0 0 6px #fff, 0 0 10px #ffd1e1, 0 0 16px #ff7db7;
+    filter: drop-shadow(0 0 3px rgba(255,255,255,0.8));
+  }
+  100% {
+    transform: translateY(-1px) scale(1.06);
+    text-shadow: 0 0 8px #fff, 0 0 14px #ffe3ee, 0 0 22px #ff49a6;
+    filter: drop-shadow(0 0 5px rgba(255,255,255,1));
+  }
+}
+
 #surprise-gif {
   width: 220px;
   max-width: 56vw;
@@ -183,7 +210,8 @@ body {
   border-radius: 32px;
   box-shadow: 0 8px 44px #fec7f799;
 }
-/* Message: medium size, perfectly centered */
+
+/* Message: center */
 #transition-msg {
   position: absolute;
   left: 50%;
@@ -295,22 +323,33 @@ body {
       <img src="IMG_4082.jpeg" class="polaroid-img" alt="Image">
     </div>
   </div>
+
+  <!-- Center content (UPDATED TEXT CONTENT ONLY) -->
   <div id="center-content">
-    <div class="bday-text" aria-label="Happy Birthday emoji cake">Happy Birthday 🎂</div>
+    <div class="bday-text" aria-label="Happy Birthday cake">
+      𝓗𝓪𝓹𝓹𝔂 𝓑𝓲𝓻𝓽𝓱𝓭𝓪𝔂 <span class="cake-emoji" aria-hidden="true">🎂</span>
+    </div>
     <img src="IMG_8963.gif" id="surprise-gif" alt="Surprise GIF" aria-label="Surprise GIF">
   </div>
 </div>
+
 <!-- ---------- Second Page ---------- -->
 <div id="transition-page" role="dialog" aria-modal="true" aria-labelledby="transition-msg" aria-describedby="top-helper-msg">
   <!-- Top helper message -->
   <div id="top-helper-msg" role="alert" aria-live="polite">Tap anywhere for special wishes!!!</div>
+
   <div id="full-gif">
     <img src="IMG_8966.gif" alt="Gift animation" aria-hidden="true" style="width:100%;height:100%;object-fit:contain;border-radius:32px;box-shadow:0 8px 44px #fec7f799;">
   </div>
+
   <div id="transition-msg" role="heading" aria-level="1" tabindex="0">Happy Birthday Anuja❤️✨🫶</div>
+
   <div id="transition-sticky-notes"></div>
+
+  <!-- 🔊 Song playback kept exactly the same -->
   <audio id="birthday-audio" controls hidden src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
 </div>
+
 <script>
 const stickyContents = [
   `"You make my world shine brighter every day." <span class="emoji">✨</span>`,
@@ -337,6 +376,7 @@ const stickyNoteContainer = document.getElementById('transition-sticky-notes');
 const birthdayAudio = document.getElementById('birthday-audio');
 const topHelperMsg = document.getElementById('top-helper-msg');
 
+/* Page 1 → Page 2: unchanged behavior */
 surpriseGif.onclick = function() {
   document.getElementById('container-main').style.display = 'none';
   transitionPage.style.display = 'block';
@@ -357,26 +397,31 @@ surpriseGif.onclick = function() {
   }, 3000);
 };
 
+/* Sticky notes: unchanged behavior */
 let stickyIndex = 0;
 transitionPage.addEventListener("click", function(e) {
-  // Only allow sticky notes after main message appears
   if (transMsg.style.opacity !== "1") return;
   if (e.target === fullGifDiv || e.target === fullGifDiv.firstChild) return;
+
   const x = e.clientX;
   const y = e.clientY;
   const vw = window.innerWidth, vh = window.innerHeight;
   const msgRect = {x: vw/2-60, y: vh*0.53-35, w:120, h:70};
   if(x>msgRect.x && x<msgRect.x+msgRect.w && y>msgRect.y && y<msgRect.y+msgRect.h) return;
+
   if(stickyIndex >= stickyContents.length) stickyIndex = 0;
+
   const el = document.createElement('div');
   el.className = "sticky-note " + stickyColors[stickyIndex%stickyColors.length];
   el.innerHTML = `<div class="pin">📌</div>${stickyContents[stickyIndex]}`;
   stickyIndex++;
+
   el.style.left = `${x-60}px`;
   el.style.top = `${y-22}px`;
   el.style.opacity = "0";
   const deg = Math.floor(Math.random()*18-9);
   el.style.transform = `rotate(${deg}deg) scale(0.81)`;
+
   let overlap = false, notes = stickyNoteContainer.children;
   for(let i=0;i<notes.length;i++) {
     const prev = notes[i].getBoundingClientRect();
