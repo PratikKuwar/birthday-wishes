@@ -9,7 +9,7 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Baloo 2', 'Lobster', cursive;
+  font-family: 'Montserrat', 'Lobster', 'Pacifico', 'Baloo 2', cursive;
   background: radial-gradient(ellipse at center, #fff3fa 1%, #feb7d4 50%, #c7fafd 100%);
   overflow-x: hidden;
 }
@@ -75,7 +75,7 @@ body {
 #center-content {
   position: absolute;
   left: calc(160px + 32px + 5vw);
-  top: calc(212px + 100px + 5vw); /* extra downward space */
+  top: calc(212px + 120px + 5vw); /* extra downward space */
   right: 8vw;
   bottom: 10vw;
   display: flex;
@@ -86,34 +86,38 @@ body {
   justify-content: flex-start;
 }
 @media(max-width:700px){
-  #center-content{left:calc(102px + 8px + 2vw); top:calc(142px + 49px + 2vw);}
+  #center-content{left:calc(102px + 8px + 2vw); top:calc(142px + 60px + 2vw);}
 }
-/* ---- Stylish Bold Whitish Birthday Text ---- */
+/* ---- Stylish, Bold, Highly Contrasting Birthday Text ---- */
 .bday-text {
-  font-size: 3.1rem;
-  font-family: 'Lobster','Montserrat','Pacifico','Caveat',cursive;
+  font-size: 3.12rem;
+  font-family: 'Lobster','Montserrat','Pacifico','Baloo 2',cursive;
   font-weight: 900;
-  letter-spacing: .10em;
-  margin: 110px 0 30px 0;
+  letter-spacing: .13em;
+  margin: 120px 0 38px 0;
   text-align: center;
-  background: unset;
-  color: #fff;
-  text-shadow: 0px 0px 7px #fff, 0px 0px 18px #fff, 2px 2px 32px #fd89c9c0, 0 0 80px #fff, 2px 2px 2px #f77;
-  filter: brightness(1.1) contrast(1.15);
+  background: linear-gradient(90deg, #f904b7 12%, #ffa0a0 55%, #fff 84%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  filter: brightness(1.1) contrast(1.21);
+  text-shadow: 1px 2px 6px #fff, 0 0 18px #f904b7, 0 0 35px #fff;
   line-height: 1.07;
-  width: 92%;
+  width: 96%;
+  border-radius:18px;
 }
-@media(max-width:700px){.bday-text{font-size:1.8rem;margin-top:50px;}}
+@media(max-width:700px){.bday-text{font-size:2rem;margin-top:54px;}}
 #surprise-gif {
   width: 220px;
-  max-width: 55vw;
+  max-width: 58vw;
   border-radius: 17px;
   box-shadow: 0 7px 14px #ffe3f991;
-  margin-top: 38px; /* sync spacing with text movement */
-  margin-bottom: 18px;
+  margin-top: 40px; /* sync spacing with text movement */
+  margin-bottom: 20px;
   cursor: pointer;
 }
-@media(max-width:700px){#surprise-gif{width:96px;max-width:34vw;}}
+@media(max-width:700px){#surprise-gif{width:100px;max-width:34vw;}}
 /* ---------- Second Page ---------- */
 #transition-page {
   display: none;
@@ -172,8 +176,13 @@ body {
   text-align: center;
   width: 85vw;
   opacity: 0;
-  transition: opacity 0.7s cubic-bezier(.54,2.1,.6,.95);
+  transition: opacity 0.8s cubic-bezier(.54,2.1,.6,.95);
   z-index: 3013;
+  background: linear-gradient(90deg, #ffeb49 10%, #f904b7 82%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
 }
 @media(min-width:700px){
   #transition-msg{font-size:2.8rem;width:52vw;}
@@ -225,7 +234,6 @@ body {
 </head>
 <body>
 <div id="container-main">
-  <!-- L Horizontal -->
   <div id="l-horizontal">
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
@@ -240,7 +248,6 @@ body {
       <img src="IMG_7744.jpeg" class="polaroid-img">
     </div>
   </div>
-  <!-- L Vertical -->
   <div id="l-vertical">
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
@@ -270,7 +277,6 @@ body {
 </div>
 <!-- ---------- Second Page ---------- -->
 <div id="transition-page">
-  <!-- Top helper message -->
   <div id="top-helper-msg">Tap anywhere for special wishes!!!</div>
   <div id="full-gif">
     <img src="IMG_8966.gif" alt="Gift animation" style="width:100%;height:100%;object-fit:contain;border-radius:32px;box-shadow:0 8px 44px #fec7f799;">
@@ -311,13 +317,16 @@ surpriseGif.onclick = function() {
   fullGifDiv.style.opacity = 1;
   transMsg.style.opacity = 0;
   stickyNoteContainer.innerHTML = '';
-  topHelperMsg.style.opacity = 1;
+  topHelperMsg.style.opacity = 0;
   birthdayAudio.currentTime = 0;
   birthdayAudio.play();
   setTimeout(function() {
     fullGifDiv.style.opacity = 0;
     transMsg.style.opacity = 1;
-    topHelperMsg.style.opacity = 0;
+    topHelperMsg.style.opacity = 1;
+    setTimeout(function() {
+      topHelperMsg.style.opacity = 0;
+    }, 3000); // Show message for 3 seconds after text appears
     stickyNoteContainer.style.pointerEvents = 'auto';
   }, 3000);
 };
