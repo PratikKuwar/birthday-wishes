@@ -9,8 +9,8 @@
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Montserrat', 'Lobster', 'Pacifico', 'Baloo 2', cursive;
-  background: radial-gradient(ellipse at center, #fff3fa 1%, #feb7d4 50%, #c7fafd 100%);
+  font-family: 'Baloo 2', 'Lobster', cursive;
+  background: radial-gradient(ellipse at center, #fff3fa 1%, #feb7d4 48%, #c7fafd 100%);
   overflow-x: hidden;
 }
 #container-main {
@@ -71,11 +71,11 @@ body {
   #l-horizontal{gap:6px;}
   #l-vertical{gap:6px;}
 }
-/* ---- Center content downward and sync GIF ---- */
+/* ---- Downward, Centered Content ---- */
 #center-content {
   position: absolute;
   left: calc(160px + 32px + 5vw);
-  top: calc(212px + 120px + 5vw); /* extra downward space */
+  top: calc(212px + 128px + 5vw);
   right: 8vw;
   bottom: 10vw;
   display: flex;
@@ -86,39 +86,58 @@ body {
   justify-content: flex-start;
 }
 @media(max-width:700px){
-  #center-content{left:calc(102px + 8px + 2vw); top:calc(142px + 60px + 2vw);}
+  #center-content{left:calc(102px + 8px + 2vw);top:calc(142px + 65px + 2vw);}
 }
-/* ---- Stylish, Bold, Highly Contrasting Birthday Text ---- */
+/* --- Stylish, Bold, Celebratory Birthday Text --- */
 .bday-text {
-  font-size: 3.12rem;
-  font-family: 'Lobster','Montserrat','Pacifico','Baloo 2',cursive;
+  font-size: 3.5rem;
+  font-family: 'Lobster', 'Pacifico', 'Montserrat', cursive;
   font-weight: 900;
-  letter-spacing: .13em;
-  margin: 120px 0 38px 0;
+  letter-spacing: 0.13em;
+  margin: 128px 0 42px 0;
   text-align: center;
-  background: linear-gradient(90deg, #f904b7 12%, #ffa0a0 55%, #fff 84%);
+  background: linear-gradient(90deg, #f904b7 10%, #ffa0a0 55%, #fff 90%);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   background-clip: text;
   color: transparent;
-  filter: brightness(1.1) contrast(1.21);
-  text-shadow: 1px 2px 6px #fff, 0 0 18px #f904b7, 0 0 35px #fff;
-  line-height: 1.07;
+  text-shadow: 1px 2px 6px #fff, 0 0 4px #ff16ee, 0 0 16px #fff, 0 0 24px #ffa0a0, 2px 3px 30px #fff;
+  filter: brightness(1.2) contrast(1.21);
+  line-height: 1.1;
   width: 96%;
-  border-radius:18px;
+  border-radius: 20px;
+  transition: filter 0.4s, text-shadow 0.4s;
+  animation: mainTextGlow 1.3s cubic-bezier(0.52,1.55,0.54,0.91);
 }
-@media(max-width:700px){.bday-text{font-size:2rem;margin-top:54px;}}
+@keyframes mainTextGlow {
+  0% { filter: brightness(0.9) contrast(1); text-shadow: 0 0 0 #fff; }
+  68% { filter: brightness(1.27) contrast(1.22); text-shadow: 3px 3px 50px #f904b7, 0 0 32px #fff;}
+  100% { filter: brightness(1.2) contrast(1.21);}
+}
+@media(max-width:700px){
+  .bday-text{font-size:2rem;margin-top:64px;}
+}
 #surprise-gif {
   width: 220px;
-  max-width: 58vw;
-  border-radius: 17px;
+  max-width: 56vw;
+  border-radius: 19px;
   box-shadow: 0 7px 14px #ffe3f991;
-  margin-top: 40px; /* sync spacing with text movement */
+  margin-top: 48px;
   margin-bottom: 20px;
   cursor: pointer;
+  transition: box-shadow 0.3s;
+  animation: popIn 0.9s cubic-bezier(0.44,2.2,0.38,1.1);
 }
-@media(max-width:700px){#surprise-gif{width:100px;max-width:34vw;}}
-/* ---------- Second Page ---------- */
+@keyframes popIn {
+  0% {transform: scale(0.7); opacity: 0;}
+  70% {transform: scale(1.07); opacity: 1;}
+  100% {transform: scale(1);}
+}
+@media(max-width:700px){
+  #surprise-gif{width:104px;max-width:34vw;}
+}
+
+/* --------- Second Page --------- */
 #transition-page {
   display: none;
   position: fixed;
@@ -126,7 +145,7 @@ body {
   background: radial-gradient(circle at center, #181929 55%, #763a96 100%);
   overflow: hidden;
 }
-/* helper top message */
+/* Helper text at top */
 #top-helper-msg {
   position: absolute;
   left: 50%;
@@ -137,13 +156,13 @@ body {
   font-family: 'Baloo 2','Montserrat',cursive;
   font-weight: 600;
   text-shadow: 0 1px 14px #241245, 0 0 2px #fff;
-  letter-spacing: .03em;
+  letter-spacing: 0.03em;
   padding: 5px 20px;
   border-radius: 15px;
   background: rgba(34,34,34,0.26);
   opacity: 0;
   z-index: 3012;
-  transition: opacity .6s;
+  transition: opacity 0.6s;
   pointer-events: none;
 }
 @media(max-width:700px){#top-helper-msg{font-size:0.8rem;}}
@@ -161,22 +180,29 @@ body {
 @media(max-width:700px){
   #full-gif{width:200px;height:200px;}
 }
-/* Message: medium size, stays perfectly centered */
+#full-gif img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: 32px;
+  box-shadow: 0 8px 44px #fec7f799;
+}
+/* Message: medium size, perfectly centered */
 #transition-msg {
   position: absolute;
   left: 50%;
   top: 53%;
   transform: translate(-50%, -50%);
   font-size: 2.25rem;
-  font-family: 'Lobster', 'Montserrat', 'Pacifico', 'Baloo 2', cursive;
+  font-family: 'Lobster','Montserrat','Pacifico','Baloo 2', cursive;
   font-weight: 900;
   text-shadow: 7px 7px 54px #f285c7,0 0 60px #fff, 1px 1px 26px #fff0;
-  letter-spacing: .12em;
+  letter-spacing: 0.12em;
   color: #fff;
   text-align: center;
   width: 85vw;
   opacity: 0;
-  transition: opacity 0.8s cubic-bezier(.54,2.1,.6,.95);
+  transition: opacity 0.8s cubic-bezier(0.54,2.1,0.6,0.95);
   z-index: 3013;
   background: linear-gradient(90deg, #ffeb49 10%, #f904b7 82%);
   -webkit-background-clip: text;
@@ -187,6 +213,7 @@ body {
 @media(min-width:700px){
   #transition-msg{font-size:2.8rem;width:52vw;}
 }
+
 /* Sticky Notes */
 #transition-sticky-notes {
   position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 3050; pointer-events: none;
@@ -196,7 +223,7 @@ body {
   border-radius: 13px;
   box-shadow: 2px 7px 22px #8888a966;
   padding: 9px 8px 7px 10px;
-  font-size: .89rem; 
+  font-size: .89rem;
   font-family: 'Caveat','Baloo 2',cursive;
   font-weight: bold;
   color: #222; letter-spacing: .8px;
@@ -216,10 +243,10 @@ body {
   to{opacity:1; transform: scale(1);}
 }
 .sticky-note .pin {
-  font-size:1.3rem;
+  font-size: 1.3rem;
   position: absolute; left: 50%; top: -7px; transform: translateX(-50%);
 }
-.sticky-note .emoji {font-size:.91rem; margin-left:4px;}
+.sticky-note .emoji {font-size: .91rem; margin-left: 4px;}
 .sticky-1 {background:#fffbab;}
 .sticky-2 {background:#f9bbff;}
 .sticky-3 {background:#bcfff1;}
@@ -234,56 +261,59 @@ body {
 </head>
 <body>
 <div id="container-main">
+  <!-- L Horizontal -->
   <div id="l-horizontal">
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
-      <img src="IMG_8736.jpeg" class="polaroid-img">
+      <img src="IMG_8736.jpeg" class="polaroid-img" alt="Image">
     </div>
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
-      <img src="IMG_7789.jpeg" class="polaroid-img">
+      <img src="IMG_7789.jpeg" class="polaroid-img" alt="Image">
     </div>
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
-      <img src="IMG_7744.jpeg" class="polaroid-img">
+      <img src="IMG_7744.jpeg" class="polaroid-img" alt="Image">
     </div>
   </div>
+  <!-- L Vertical -->
   <div id="l-vertical">
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
-      <img src="IMG_8736.jpeg" class="polaroid-img">
+      <img src="IMG_8736.jpeg" class="polaroid-img" alt="Image">
     </div>
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
-      <img src="IMG_7708.jpeg" class="polaroid-img">
+      <img src="IMG_7708.jpeg" class="polaroid-img" alt="Image">
     </div>
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
-      <img src="IMG_7687.jpeg" class="polaroid-img">
+      <img src="IMG_7687.jpeg" class="polaroid-img" alt="Image">
     </div>
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
-      <img src="IMG_7753.jpeg" class="polaroid-img">
+      <img src="IMG_7753.jpeg" class="polaroid-img" alt="Image">
     </div>
     <div class="polaroid-frame">
       <div class="polaroid-pin">📌</div>
-      <img src="IMG_4082.jpeg" class="polaroid-img">
+      <img src="IMG_4082.jpeg" class="polaroid-img" alt="Image">
     </div>
   </div>
   <div id="center-content">
-    <div class="bday-text">Happy Birthday 🎂</div>
-    <img src="IMG_8963.gif" id="surprise-gif" alt="Surprise GIF">
+    <div class="bday-text" aria-label="Happy Birthday emoji cake">Happy Birthday 🎂</div>
+    <img src="IMG_8963.gif" id="surprise-gif" alt="Surprise GIF" aria-label="Surprise GIF">
   </div>
 </div>
 <!-- ---------- Second Page ---------- -->
-<div id="transition-page">
-  <div id="top-helper-msg">Tap anywhere for special wishes!!!</div>
+<div id="transition-page" role="dialog" aria-modal="true" aria-labelledby="transition-msg" aria-describedby="top-helper-msg">
+  <!-- Top helper message -->
+  <div id="top-helper-msg" role="alert" aria-live="polite">Tap anywhere for special wishes!!!</div>
   <div id="full-gif">
-    <img src="IMG_8966.gif" alt="Gift animation" style="width:100%;height:100%;object-fit:contain;border-radius:32px;box-shadow:0 8px 44px #fec7f799;">
+    <img src="IMG_8966.gif" alt="Gift animation" aria-hidden="true" style="width:100%;height:100%;object-fit:contain;border-radius:32px;box-shadow:0 8px 44px #fec7f799;">
   </div>
-  <div id="transition-msg">Happy Birthday Anuja❤️✨🫶</div>
+  <div id="transition-msg" role="heading" aria-level="1" tabindex="0">Happy Birthday Anuja❤️✨🫶</div>
   <div id="transition-sticky-notes"></div>
-  <audio id="birthday-audio" src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
+  <audio id="birthday-audio" controls hidden src="Love Me Like You Do Ringtone Download By Elena Gray Pagalworld.mp3"></audio>
 </div>
 <script>
 const stickyContents = [
@@ -326,7 +356,7 @@ surpriseGif.onclick = function() {
     topHelperMsg.style.opacity = 1;
     setTimeout(function() {
       topHelperMsg.style.opacity = 0;
-    }, 3000); // Show message for 3 seconds after text appears
+    }, 3000);
     stickyNoteContainer.style.pointerEvents = 'auto';
   }, 3000);
 };
