@@ -5,12 +5,12 @@
 <title>Happy Birthday Anuja!</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <style>
-@import url('https://fonts.googleapis.com/css?family=Pacifico:700|Baloo+2:700|Caveat:700|Lobster:700|Montserrat:800&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Lobster:700|Montserrat:900|Pacifico:700|Baloo+2:700|Caveat:700&display=swap');
 body {
   margin: 0;
   min-height: 100vh;
-  font-family: 'Baloo 2', 'Pacifico', cursive;
-  background: radial-gradient(ellipse at center, #fff3fa 1%, #feb7d4 48%, #c7fafd 100%);
+  font-family: 'Baloo 2', 'Lobster', cursive;
+  background: radial-gradient(ellipse at center, #fff3fa 1%, #feb7d4 50%, #c7fafd 100%);
   overflow-x: hidden;
 }
 #container-main {
@@ -71,8 +71,7 @@ body {
   #l-horizontal{gap:6px;}
   #l-vertical{gap:6px;}
 }
-
-/* ---- Move center content slightly downward, sync GIF --- */
+/* ---- Center content downward and sync GIF ---- */
 #center-content {
   position: absolute;
   left: calc(160px + 32px + 5vw);
@@ -89,43 +88,61 @@ body {
 @media(max-width:700px){
   #center-content{left:calc(102px + 8px + 2vw); top:calc(142px + 49px + 2vw);}
 }
-/* ---- Stylish Bold Birthday Text ---- */
+/* ---- Stylish Bold Whitish Birthday Text ---- */
 .bday-text {
-  font-size: 2.75rem;
-  color: #fff;
-  font-family: 'Lobster','Pacifico','Baloo 2', cursive;
-  font-weight: bold;
-  letter-spacing: .12em;
-  text-shadow: 3px 4px 48px #ea2182a0, 0 0 80px #fff, 2px 2px 2px #f77;
-  margin: 90px 0 30px 0;
+  font-size: 3.1rem;
+  font-family: 'Lobster','Montserrat','Pacifico','Caveat',cursive;
+  font-weight: 900;
+  letter-spacing: .10em;
+  margin: 110px 0 30px 0;
   text-align: center;
+  background: unset;
+  color: #fff;
+  text-shadow: 0px 0px 7px #fff, 0px 0px 18px #fff, 2px 2px 32px #fd89c9c0, 0 0 80px #fff, 2px 2px 2px #f77;
+  filter: brightness(1.1) contrast(1.15);
   line-height: 1.07;
-  width: 90%;
-  background: linear-gradient(90deg, #ff7cd2 25%, #ffd776 80%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-          background-clip: text;
-          color: transparent;
+  width: 92%;
 }
-@media(min-width:600px){.bday-text{font-size:3.5rem;margin-top:110px;}}
+@media(max-width:700px){.bday-text{font-size:1.8rem;margin-top:50px;}}
 #surprise-gif {
   width: 220px;
-  max-width: 50vw;
+  max-width: 55vw;
   border-radius: 17px;
   box-shadow: 0 7px 14px #ffe3f991;
-  margin-top: 30px; /* sync spacing with text movement */
+  margin-top: 38px; /* sync spacing with text movement */
   margin-bottom: 18px;
   cursor: pointer;
 }
-@media(max-width:700px){#surprise-gif{width:128px;max-width:34vw;}}
+@media(max-width:700px){#surprise-gif{width:96px;max-width:34vw;}}
 /* ---------- Second Page ---------- */
 #transition-page {
   display: none;
   position: fixed;
   width: 100vw; height: 100vh; top: 0; left: 0; z-index: 5000;
-  background: radial-gradient(circle at center, #181929 49%, #763a96 100%);
+  background: radial-gradient(circle at center, #181929 55%, #763a96 100%);
   overflow: hidden;
 }
+/* helper top message */
+#top-helper-msg {
+  position: absolute;
+  left: 50%;
+  top: 7vh;
+  transform: translateX(-50%);
+  font-size: 1.12rem;
+  color: #ffeabb;
+  font-family: 'Baloo 2','Montserrat',cursive;
+  font-weight: 600;
+  text-shadow: 0 1px 14px #241245, 0 0 2px #fff;
+  letter-spacing: .03em;
+  padding: 5px 20px;
+  border-radius: 15px;
+  background: rgba(34,34,34,0.26);
+  opacity: 0;
+  z-index: 3012;
+  transition: opacity .6s;
+  pointer-events: none;
+}
+@media(max-width:700px){#top-helper-msg{font-size:0.8rem;}}
 #full-gif {
   position: absolute;
   left: 50%; top: 50%;
@@ -144,49 +161,23 @@ body {
 #transition-msg {
   position: absolute;
   left: 50%;
-  top: 52%;
+  top: 53%;
   transform: translate(-50%, -50%);
   font-size: 2.25rem;
-  font-family: 'Lobster', 'Pacifico', 'Montserrat', cursive;
-  font-weight: bold;
-  text-shadow: 8px 8px 54px #e775bb,0 0 60px #fff;
-  letter-spacing: .11em;
+  font-family: 'Lobster', 'Montserrat', 'Pacifico', 'Baloo 2', cursive;
+  font-weight: 900;
+  text-shadow: 7px 7px 54px #f285c7,0 0 60px #fff, 1px 1px 26px #fff0;
+  letter-spacing: .12em;
   color: #fff;
   text-align: center;
   width: 85vw;
   opacity: 0;
   transition: opacity 0.7s cubic-bezier(.54,2.1,.6,.95);
   z-index: 3013;
-  background: linear-gradient(90deg, #ffd776 15%, #ff7cd2 90%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-          background-clip: text;
-          color: transparent;
 }
 @media(min-width:700px){
   #transition-msg{font-size:2.8rem;width:52vw;}
 }
-/* --- Top helper message --- */
-#top-helper-msg {
-  position: absolute;
-  left: 50%;
-  top: 9vh;
-  transform: translateX(-50%);
-  font-size: 1.07rem;
-  color: #fff8cc;
-  font-family: 'Montserrat', 'Baloo 2', cursive;
-  font-weight: 600;
-  text-shadow: 0 1px 14px #241245, 0 0 2px #fff;
-  letter-spacing: .09em;
-  padding: 5px 20px;
-  border-radius: 8px;
-  background: rgba(34,34,34,0.2);
-  opacity: 1;
-  z-index: 3012;
-  transition: opacity .6s;
-  pointer-events: none;
-}
-@media(max-width:700px){#top-helper-msg{font-size:0.75rem;}}
 /* Sticky Notes */
 #transition-sticky-notes {
   position: fixed; left: 0; top: 0; width: 100vw; height: 100vh; z-index: 3050; pointer-events: none;
@@ -196,7 +187,7 @@ body {
   border-radius: 13px;
   box-shadow: 2px 7px 22px #8888a966;
   padding: 9px 8px 7px 10px;
-  font-size: .89rem;
+  font-size: .89rem; 
   font-family: 'Caveat','Baloo 2',cursive;
   font-weight: bold;
   color: #222; letter-spacing: .8px;
@@ -339,7 +330,7 @@ transitionPage.addEventListener("click", function(e) {
   const x = e.clientX;
   const y = e.clientY;
   const vw = window.innerWidth, vh = window.innerHeight;
-  const msgRect = {x: vw/2-60, y: vh*0.52-30, w:120, h:60};
+  const msgRect = {x: vw/2-60, y: vh*0.53-35, w:120, h:70};
   if(x>msgRect.x && x<msgRect.x+msgRect.w && y>msgRect.y && y<msgRect.y+msgRect.h) return;
   if(stickyIndex >= stickyContents.length) stickyIndex = 0;
   const el = document.createElement('div');
